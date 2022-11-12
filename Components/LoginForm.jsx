@@ -5,14 +5,19 @@ import FirebaseAuthService from "../Firebase/FirebaseAuthService";
 import Image from "next/image";
 import css from "../styles/LoginForm.module.scss";
 
-import personIcon from "../Assets/icons/person_icon.svg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import personIcon from "../assets/icons/person_icon.svg";
 
 export default function LoginForm() {
-    const { user, setUser } = useContext(LoginContext);
-    const { formOn, setFormOn } = useContext(LoginContext);
+    const { user, setUser, formOn, setFormOn, userName, setUserName } =
+        useContext(LoginContext);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const trimedUsername = username.replace(/@.*$/, "");
 
     const toggleForm = () => {
         setFormOn(!formOn);
@@ -27,7 +32,13 @@ export default function LoginForm() {
             setPassword("");
             toggleForm();
             FirebaseAuthService.subscribeToAuthChanges(setUser);
-            alert(`Welcome ${username}`)
+            toast.success(`Welcome ${trimedUsername} `, {
+                autoClose: 2000,
+                theme: "colored",
+                closeOnClick: true,
+                pauseOnHover: false,
+            });
+            setUserName(trimedUsername);
         } catch (error) {
             alert(error.message);
         }
@@ -86,7 +97,7 @@ export default function LoginForm() {
                             </label>
                             <label>
                                 <input
-                                 className={css.form_input}
+                                    className={css.form_input}
                                     type="password"
                                     required
                                     value={password}
@@ -97,18 +108,21 @@ export default function LoginForm() {
                                 />
                             </label>
                             <div>
-                                <button 
-                                className={css.login_form_login_button}
-                                >LOGIN</button>
+                                <button className={css.login_form_login_button}>
+                                    LOGIN
+                                </button>
                             </div>
                             <div>
-                            <p className={css.login_form_reset_text} >Forget Password ? 
-                                <button type="button"
-                                className={css.login_form_reset_button}
-                                 onClick={resetPassword}>
-                                   Click to reset
-                                </button>{" "}
-                            </p>
+                                <p className={css.login_form_reset_text}>
+                                    Forget Password ?
+                                    <button
+                                        type="button"
+                                        className={css.login_form_reset_button}
+                                        onClick={resetPassword}
+                                    >
+                                        Click to reset
+                                    </button>{" "}
+                                </p>
                             </div>
                         </form>
                     </div>
