@@ -1,0 +1,53 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --DM : 'DM Sans', sans-serif;
+  --Garamond : 'EB Garamond', serif;
+  --Roboto  : 'Roboto Mono', monospace;
+  --Montserrat : 'Montserrat', sans-serif;
+  --Amaranth : 'Amaranth', sans-serif;
+
+  --fontSize0 : 15px;
+  --fontSize1 : 20px;
+  --fontSize2 : 30px;
+  --fontSize3 : 40px;
+  --fontSize4 : 60px;
+
+
+  --width1 : 1000px;
+  --maxWidth1 : 1800px; 
+  --maxWidth2 : 1275px;
+
+  --darkColor1 : #2f2f2f;
+  --darkColor2 : #4c4c4c ;
+  --greyColor1 : #a19da0;
+  --greyColor2 : #c8c8c8 ;
+  --whiteColor1 : #F1F1F1;
+  --whiteColor2 : #F2F2F2; 
+  
+  --blueColor1  : #4285f4;
+  --blueColor2 : #6a6ae9 ;
+  --blueColor3 : #3f51b5;
+
+
+  --redColor1 : #ff5d5d;  
+
+
+  --transition1 : all 0.3s ease:
+
+}
