@@ -11,6 +11,10 @@
   font-size: var(--fontSize0);
 }
 
+.left_part_container {
+  min-width: 300px;
+}
+
 .logo_box {
   display: flex;
   justify-content: center;
@@ -64,6 +68,26 @@
   background-color: var(--blueColor3);
 }
 
+.title_container {
+  min-width: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.title_container h1, .title_container h2 {
+  margin: 0;
+  padding: 0;
+  font-family: var(--Amaranth);
+}
+.title_container h1 {
+  font-size: var(--fontSize4);
+  margin-left: 5px;
+}
+.title_container h2 {
+  font-size: var(--fontSize0);
+  margin-right: 5px;
+}
+
 .right_part_container {
   min-width: 300px;
   height: 50px;
@@ -72,23 +96,23 @@
   align-items: center;
 }
 
-.username_container, .login_container, .basket_container {
+.username_container,
+.login_container,
+.basket_container {
   height: 100%;
   display: flex;
   align-items: center;
 }
-.username_container p, .login_container p, .basket_container p {
+.username_container p,
+.login_container p,
+.basket_container p {
   margin: auto;
   text-align: center;
 }
-.username_container span, .login_container span, .basket_container span {
+.username_container span,
+.login_container span,
+.basket_container span {
   font-size: var(--fontSize1);
-}
-
-.username_container:hover,
-.login_container:hover,
-.basket_container:hover {
-  border: 1px solid var(--whiteColor2);
 }
 
 .log_button {

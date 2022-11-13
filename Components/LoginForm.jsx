@@ -8,12 +8,13 @@ import css from "../styles/LoginForm.module.scss";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import personIcon from "../assets/icons/person_icon.svg";
+import personIcon from "../public/assets/icons/person_icon.svg";
 
 export default function LoginForm() {
     const { user, setUser, formOn, setFormOn, userName, setUserName } =
         useContext(LoginContext);
 
+    const [newAccompt, setNewAccompt] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -22,25 +23,68 @@ export default function LoginForm() {
     const toggleForm = () => {
         setFormOn(!formOn);
     };
+
+    const switchToLogIn = () => {
+        setNewAccompt(!newAccompt);
+    };
+
+    // register
+    const handleSignForm = async (e) => {
+        e.preventDefault();
+    };
+
     // login
     const handleSubmitForm = async (e) => {
         e.preventDefault();
 
-        try {
-            await FirebaseAuthService.loginUser(username, password);
-            setUsername("");
-            setPassword("");
-            toggleForm();
-            FirebaseAuthService.subscribeToAuthChanges(setUser);
-            toast.success(`Welcome ${trimedUsername} `, {
-                autoClose: 2000,
-                theme: "colored",
-                closeOnClick: true,
-                pauseOnHover: false,
-            });
-            setUserName(trimedUsername);
-        } catch (error) {
-            alert(error.message);
+        if (!newAccompt) {
+            try {
+                await FirebaseAuthService.loginUser(username, password);
+
+               
+                
+
+                setUsername("");
+                setPassword("");
+                toggleForm();
+                FirebaseAuthService.subscribeToAuthChanges(setUser);
+                toast.success(`Welcome ${trimedUsername} `, {
+                    autoClose: 2000,
+                    theme: "colored",
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                });
+                setUserName(trimedUsername);
+            } catch (error) {
+
+               
+                toast.error(` Email or Password invalid `, {
+                    autoClose: 2000,
+                    theme: "colored",
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                });
+                return;
+
+            }
+        } else {
+            try {
+                await FirebaseAuthService.registerUser(username, password);
+                setUsername("");
+                setPassword("");
+                toast.success(`Welcome ${trimedUsername} `, {
+                    autoClose: 2000,
+                    theme: "colored",
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                });
+            } catch (error) {
+                
+                    toast.error('User already signed with this email')
+                    
+                
+              return;
+            }
         }
     };
     // logout
@@ -51,14 +95,29 @@ export default function LoginForm() {
 
     const resetPassword = async () => {
         if (!username) {
-            alert("Missing email !");
+            toast.error(` PLease enter an email !  `, {
+                autoClose: 2000,
+                theme: "colored",
+                closeOnClick: true,
+                pauseOnHover: false,
+            });
             return;
         }
         try {
-            await FirebaseAuthService.sendPasswordResetEmail(username);
-            alert("sent the password reset email");
+            FirebaseAuthService.sendPasswordResetEmail(username);
+            // alert("sent the password reset email");
+            toast.info("Your password has been reset !  ")
         } catch (error) {
-            alert(error.message);
+
+            toast.error(` Email unknown !  `, {
+                autoClose: 2000,
+                theme: "colored",
+                closeOnClick: true,
+                pauseOnHover: false,
+            });
+        
+            return;
+           
         }
     };
 
@@ -77,7 +136,13 @@ export default function LoginForm() {
                                 alt="icon member"
                             />
                         </div>
-                        <h2 className={css.login_form_title}>MEMBER LOGIN</h2>
+                        {!newAccompt ? (
+                            <h2 className={css.login_form_title}>
+                                MEMBER LOGIN
+                            </h2>
+                        ) : (
+                            <h2 className={css.login_form_title}>SIGN IN </h2>
+                        )}
 
                         <form
                             onSubmit={handleSubmitForm}
@@ -108,21 +173,79 @@ export default function LoginForm() {
                                 />
                             </label>
                             <div>
-                                <button className={css.login_form_login_button}>
-                                    LOGIN
-                                </button>
+                                {!newAccompt ? (
+                                    <button
+                                        onSubmit={handleSubmitForm}
+                                        className={css.login_form_login_button}
+                                    >
+                                        LOG IN
+                                    </button>
+                                ) : (
+                                    <button
+                                        onSubmit={handleSignForm}
+                                        className={css.login_form_login_button}
+                                    >
+                                        SIGN IN
+                                    </button>
+                                )}
                             </div>
                             <div>
-                                <p className={css.login_form_reset_text}>
-                                    Forget Password ?
-                                    <button
-                                        type="button"
-                                        className={css.login_form_reset_button}
-                                        onClick={resetPassword}
-                                    >
-                                        Click to reset
-                                    </button>{" "}
-                                </p>
+                                {newAccompt ? (
+                                    <div>
+                                        <p
+                                            className={
+                                                css.login_form_reset_text
+                                            }
+                                        >
+                                            Or
+                                            <button
+                                                type="button"
+                                                className={
+                                                    css.login_form_reset_button
+                                                }
+                                                onClick={switchToLogIn}
+                                            >
+                                                Log In
+                                            </button>{" "}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <p
+                                            className={
+                                                css.login_form_reset_text
+                                            }
+                                        >
+                                            Forget Password ?
+                                            <button
+                                                type="button"
+                                                className={
+                                                    css.login_form_reset_button
+                                                }
+                                                onClick={resetPassword}
+                                            >
+                                                Click to reset
+                                            </button>{" "}
+                                        </p>
+
+                                        <p
+                                            className={
+                                                css.login_form_reset_text
+                                            }
+                                        >
+                                            Or
+                                            <button
+                                                type="button"
+                                                className={
+                                                    css.login_form_reset_button
+                                                }
+                                                onClick={switchToLogIn}
+                                            >
+                                                Sign In
+                                            </button>{" "}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
                         </form>
                     </div>

@@ -1,5 +1,5 @@
 .global_container {
-	position: relative;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,11 +8,16 @@
     height: 100px;
     color: var(--whiteColor1);
     font-family: var(--Amaranth);
-    
+
     font-size: var(--fontSize0);
 }
 
+.left_part_container {
+    min-width: 300px;
+}
+
 .logo_box {
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,14 +33,15 @@
 }
 
 
-// SEARCH BAR
+
+// SEARCH BAR MIDDLE
+
 .searchBar_container {
     display: flex;
     max-width: 800px;
     min-width: 200px;
     width: 100%;
     margin: 0 30px;
-	
 
     input {
         width: 100%;
@@ -48,13 +54,11 @@
         font-family: var(--Amaranth);
         font-size: var(--fontSize1);
         color: var(--darkColor1);
-		  background-color: var(--whiteColor1);
-       
+        background-color: var(--whiteColor1);
     }
-	 input:focus {
-		border: 2px solid var(--blueColor2);
-	 }
-  
+    input:focus {
+        border: 2px solid var(--blueColor2);
+    }
 
     button {
         height: 45px;
@@ -72,6 +76,29 @@
     }
 }
 
+// TITLE
+.title_container {
+    min-width: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    h1, h2 {
+		margin: 0;
+		padding: 0;
+		font-family: var(--Amaranth);
+		
+	}
+    h1 {
+        font-size: var(--fontSize4);
+        margin-left: 5px;
+    }
+    h2 {
+        font-size: var(--fontSize0);
+        margin-right: 5px;
+    }
+}
+
 // RIGHT PART
 .right_part_container {
     min-width: 300px;
@@ -80,31 +107,29 @@
     justify-content: space-around;
     align-items: center;
     // border: 1px solid var(--whiteColor2);
-  
 }
 
-.username_container, .login_container, .basket_container {
-
-
+.username_container,
+.login_container,
+.basket_container {
     height: 100%;
     display: flex;
     align-items: center;
-    p{
+    p {
         margin: auto;
         text-align: center;
     }
 
     span {
-      font-size: var(--fontSize1);
-      
+        font-size: var(--fontSize1);
     }
 }
-.username_container:hover,
-.login_container:hover,
-.basket_container:hover
- {
-    border: 1px solid var(--whiteColor2);
-}
+// .username_container:hover,
+// .login_container:hover,
+// .basket_container:hover {
+   
+//     border: 1px solid var(--whiteColor2);
+// }
 
 
 .log_button {
@@ -112,3 +137,5 @@
     border: none;
     cursor: pointer;
 }
+
+

@@ -1,19 +1,26 @@
 import React, { useState, useContext } from "react";
+
 import css from "../styles/Navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { LoginContext } from "../context/LoginContext";
 import FirebaseAuthService from "../Firebase/FirebaseAuthService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import searchIcon from "../assets/icons/searchIcon.svg";
-import eshopBrand from "../assets/eshopBrand.svg";
-import cart from "../assets/icons/cart.svg";
-import logout_icon from "../assets/icons/logout_icon.svg";
-import login_icon from "../assets/icons/login_icon.svg";
+import searchIcon from "../public/assets/icons/searchIcon.svg";
+import eshopBrand from "../public/assets/eshopBrand.svg";
+import cart from "../public/assets/icons/cart.svg";
+import logout_icon from "../public/assets/icons/logout_icon.svg";
+import login_icon from "../public/assets/icons/login_icon.svg";
 
 export default function Navbar() {
+
+    const router = useRouter()
+
+    console.log(router.pathname);
+
     const { formOn, setFormOn, user, setUser, userName, setUserName } =
         useContext(LoginContext);
 
@@ -33,7 +40,7 @@ export default function Navbar() {
 
     const mustConnect = () => {
         toast.error("Please connect before !", {
-            autoClose: 2000,
+            autoClose: 1000,
             theme: "colored",
             closeOnClick: true,
             pauseOnHover: false,
@@ -42,7 +49,7 @@ export default function Navbar() {
 
     return (
         <div className={css.global_container}>
-            <div className={css.logo_container}>
+            <div className={css.left_part_container}>
                 <Link href="/">
                     <div className={css.logo_box}>
                         <Image
@@ -55,7 +62,11 @@ export default function Navbar() {
                 </Link>
             </div>
 
-            <div className={css.searchBar_container}>
+{/* MIDDLE PART */}
+         
+    {router.pathname === "/ProductsPage" ? (
+
+        <div className={css.searchBar_container}>
                 <input className={css.searchBar} type="text" />
                 <button className={css.searchBar_button}>
                     <Image
@@ -66,6 +77,16 @@ export default function Navbar() {
                     />
                 </button>
             </div>
+    ) : (
+        <div className={css.title_container} >
+
+        <h2>Welcome to the</h2>
+                <h1>Fake Shop </h1>
+        </div>
+    )}
+
+          
+
 
             <div className={css.right_part_container}>
                 <div className={css.username_container}>
