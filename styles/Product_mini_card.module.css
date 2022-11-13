@@ -1,1 +1,12 @@
-/*# sourceMappingURL=Product_mini_card.module.css.map */
+.global_container {
+  width: 350px;
+  height: 500px;
+  padding: 10px;
+  margin: 20px;
+  border: 1px solid black;
+}
+
+.image_container {
+  display: flex;
+  justify-content: center;
+}/*# sourceMappingURL=Product_mini_card.module.css.map */
