@@ -19,17 +19,19 @@ export default function Product_mini_card() {
 					<Image 
 						src={hd600}
 						height={300}
-						width={300}
-						layout="responsive"
+						width={300}						 
 						alt="headphone"
 					/>
 				</div>
-				<div className={css.price}>
-					PRICE
-				</div>
+
 				<div className={css.name_product}>
-					NAME PRODUCT
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, neque?
 				</div>
+
+				<div className={css.price}>
+					<p> 450  <span>€</span> </p>
+				</div>
+				
 
 				<div className={css.rating}>
 

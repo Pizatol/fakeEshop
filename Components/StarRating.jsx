@@ -24,7 +24,7 @@ export default function StarRating() {
                         <FaStar
                             className={css.start}
                             key={index}
-                            size={30}
+                            size={25}
                             color={
                                 ratingValue <= (hover || rating)
                                     ? "#ffc107"

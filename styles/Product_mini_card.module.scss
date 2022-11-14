@@ -8,11 +8,32 @@
 	padding: 10px;
 	margin: 20px;
 	border: 1px solid black;
+	font-family: var(--Garamond );
 }
 
 
 .image_container {
+	height: 300px;
+	width: 300px;
+	position: relative;
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 }
 
+.price {
+	
+	p {
+		margin: 0;
+		font-size: var(--fontSize2);
+		font-family: var(--Montserrat);
+
+	}
+	span {
+		position: absolute;
+		font-size: var(--fontSize0);
+		transform: translateY(-5px);
+		transform: translateX(5px);
+
+	}
+}
