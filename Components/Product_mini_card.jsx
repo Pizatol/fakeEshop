@@ -1,8 +1,9 @@
 
 
-import React from 'react'
+import React , { useState} from 'react'
 import css from "../styles/Product_mini_card.module.scss"
 import Image from 'next/image'
+import Link from 'next/link'
 
 import StarRating from './StarRating'
 
@@ -11,10 +12,16 @@ import hd600 from '../public/assets/Pictures/inventoryImg/hd600.jpg'
 
 export default function Product_mini_card() {
 
+ const [name, setName] = useState("headphone")
+
 
   return (
 
 	 <div className={css.global_container}>
+	 {/* <Link href="slug"> */}
+	 <Link href= {name} >
+	 
+
 				<div className={css.image_container}>
 					<Image 
 						src={hd600}
@@ -35,12 +42,13 @@ export default function Product_mini_card() {
 
 				<div className={css.rating}>
 
-				<StarRating/>
+				{/* <StarRating/> */}
 
 
 
 				</div>
 
+	 </Link>
 
 
 

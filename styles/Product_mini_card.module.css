@@ -3,8 +3,15 @@
   height: 500px;
   padding: 10px;
   margin: 20px;
-  border: 1px solid black;
-  font-family: var(--Garamond);
+  border-radius: 5px;
+  box-shadow: 0px 2px 18px 0px rgba(50, 50, 50, 0.75);
+  font-family: var(--Amaranth);
+  transition: all 0.3s ease;
+}
+
+.global_container:hover {
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+  transform: scale(1.02);
 }
 
 .image_container {
@@ -16,10 +23,16 @@
   overflow: hidden;
 }
 
+.name_product {
+  font-size: var(--fontSize1);
+  margin: 10px 0;
+}
+
 .price p {
   margin: 0;
   font-size: var(--fontSize2);
-  font-family: var(--Montserrat);
+  font-family: var(--Amaranth);
+  margin: 10px 0;
 }
 .price span {
   position: absolute;

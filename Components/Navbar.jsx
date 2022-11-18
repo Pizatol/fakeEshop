@@ -50,6 +50,8 @@ export default function Navbar() {
     return (
         <div className={css.global_container}>
             <div className={css.left_part_container}>
+            <div>
+
                 <Link href="/">
                     <div className={css.logo_box}>
                         <Image
@@ -61,10 +63,22 @@ export default function Navbar() {
                     </div>
                 </Link>
             </div>
+            { 
+                user ? (
+                    <div className={css.new_annonce} >
+                <Link href='/New_annonce'>
+
+                <h2>Déposer une annonce</h2>
+                </Link>
+            </div>
+                ) : ("")
+            }
+            
+            </div>
 
 {/* MIDDLE PART */}
          
-    {router.pathname === "/ProductsPage" ? (
+    {router.pathname === ("/ProductsPage" || "/slug") ? (
 
         <div className={css.searchBar_container}>
                 <input className={css.searchBar} type="text" />
@@ -89,6 +103,12 @@ export default function Navbar() {
 
 
             <div className={css.right_part_container}>
+
+            
+
+
+
+
                 <div className={css.username_container}>
                     {user ? (
                         <p>

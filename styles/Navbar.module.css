@@ -1,9 +1,11 @@
 .global_container {
+  max-width: 1500px;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 50px;
+  margin: auto;
   background-color: var(--darkColor1);
   height: 100px;
   color: var(--whiteColor1);
@@ -13,6 +15,16 @@
 
 .left_part_container {
   min-width: 300px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.new_annonce h2 {
+  font-size: var(--fontSize0);
+  transition: all 0.3s ease;
+}
+.new_annonce h2:hover {
+  color: var(--red1);
 }
 
 .logo_box {
@@ -32,7 +44,7 @@
 
 .searchBar_container {
   display: flex;
-  max-width: 800px;
+  max-width: 500px;
   min-width: 200px;
   width: 100%;
   margin: 0 30px;
@@ -113,6 +125,10 @@
 .login_container span,
 .basket_container span {
   font-size: var(--fontSize1);
+}
+
+.basket_container {
+  cursor: pointer;
 }
 
 .log_button {
