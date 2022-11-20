@@ -9,6 +9,8 @@ import { db } from "../Firebase/FirebaseConfig";
 import { storage } from "../Firebase/FirebaseConfig";
 import { v4 } from "uuid";
 
+import Category from "../Components/Category";
+
 import cancel_icon from '../public/assets/icons/cancel.svg'
 import validate_icon from '../public/assets/icons/validate.svg'
 import download_icon from '../public/assets/icons/download_icon.svg'
@@ -39,6 +41,8 @@ export default function New_annonce() {
     const [tempoListImg, setTempoListImg] = useState([]);
 
     const [testing, setTest] = useState(false)
+
+    const [category, setCategory] = useState('')
 
     const toggleTest = () => {
         console.log(testing);
@@ -123,6 +127,11 @@ export default function New_annonce() {
             });
     };
 
+
+
+// CONSOLE LOG
+console.log(category);
+
     return (
         <div>
             <form>
@@ -133,18 +142,14 @@ export default function New_annonce() {
                             <input type="text" />
                         </label>
                     </div>
-                    <div>
+                    
+                    <div className={css.price}>
                         <label>
                             Prix :
                             <input type="number" />
                         </label>
                     </div>
-                    <div>
-                        <label>
-                            Prix :
-                            <input type="number" />
-                        </label>
-                    </div>
+                   
                     <div>
                         <label>
                             description
@@ -254,6 +259,8 @@ export default function New_annonce() {
                             : null}
                     </div>
                 </div>
+
+                <Category category={setCategory} />
             </form>
         </div>
     );

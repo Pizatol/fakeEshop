@@ -1,0 +1,33 @@
+
+
+.category_container {
+	display: flex;
+	margin-left: 50px;
+
+	button {
+		width: 200px ;
+		height: 40px;
+		border: none;
+		background-color: var(--whiteColor1);
+		color: var(--darkColor2);
+		font-family: var(--DM);
+		font-size: var(--fontSize0);
+		cursor: pointer;
+	}
+	button:hover, button:focus {
+		background-color: var(--yellow1);
+	}
+
+
+	
+}
+
+.left_part, .right_part {
+	display: flex;
+	flex-direction: column;
+
+	div {
+		display: flex;
+	flex-direction: column;
+	}
+}
