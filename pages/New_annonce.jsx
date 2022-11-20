@@ -9,6 +9,10 @@ import { db } from "../Firebase/FirebaseConfig";
 import { storage } from "../Firebase/FirebaseConfig";
 import { v4 } from "uuid";
 
+import cancel_icon from '../public/assets/icons/cancel.svg'
+import validate_icon from '../public/assets/icons/validate.svg'
+import download_icon from '../public/assets/icons/download_icon.svg'
+
 import {
     uploadBytes,
     ref,
@@ -33,6 +37,13 @@ export default function New_annonce() {
     const [stateImage, setStateImage] = useState([]);
     const [uploadImage, setUploadImage] = useState([]);
     const [tempoListImg, setTempoListImg] = useState([]);
+
+    const [testing, setTest] = useState(false)
+
+    const toggleTest = () => {
+        console.log(testing);
+        setTest(!testing)
+    }
 
     const dataCollectionRef = collection(db, "products");
 
@@ -161,35 +172,62 @@ export default function New_annonce() {
                                     // onChange={(e) => onImageUpload(e)}
                                 />
                             </label>
-
-                            <button
-                                className={css.button_reset}
-                                type="button"
-                                onClick={() => setStateImage([])}
-                            >
-                                {" "}
-                                X{" "}
-                            </button>
                         </div>
 
+
                         <button
-                            className={css.button_validation}
+                            className={
+                                stateImage.length === 0 ?
+                                ( `${css.button_validation}` ) : 
+                                (`${css.button_validation_done}` )
+                            }
                             type="button"
                             onClick={onImageUpload}
                         >
-                            Télécharger
+                            <Image 
+                                    src={download_icon}
+                                    alt="cancel icon"
+                                    height={40}
+                                    width={40}
+
+                                   />
                         </button>
                     </div>
 
-                    <span className={css.selected_image_span}>
-                        {stateImage ? <span> {stateImage.name} </span> : ""}
-                    </span>
+                    <div className={css.selected_image_span}>
+                        {
+                            stateImage.length !== 0 ? (
+                            <div className={css.name_file_container} >
+                                <p>{stateImage.name}</p>
+                                <button
+                                type='button'
+                                    className={css.button_reset}
+                                    onClick={() => setStateImage([])}
+                                >
+                                   <Image 
+                                    src={cancel_icon}
+                                    alt="cancel icon"
+                                    height={30}
+                                    width={30}
+
+                                   />
+                                    
+                                </button>
+                            </div>
+                        ) : (
+                           ""
+                            
+                        )}
+                    </div>
+
+
 
                     <div className={css.image_container_preview}>
                         {uploadImage
                             ? uploadImage.map((img, index) => (
-                                  <div className={css.image} key={index}>
+                                  <div className={css.image_preview_container} key={index}>
                                       <Image
+                                      className={css.image}
                                           src={img.url}
                                           layout="responsive"
                                           width={300}
@@ -197,12 +235,19 @@ export default function New_annonce() {
                                           alt={img}
                                       />
                                       <button
+                                       className={css.button_reset}
                                           type="button"
                                           onClick={() => {
                                               deleteImage(img);
                                           }}
                                       >
-                                          Supprimer
+                                         <Image 
+                                    src={cancel_icon}
+                                    alt="cancel icon"
+                                    height={30}
+                                    width={30}
+
+                                   />
                                       </button>
                                   </div>
                               ))
