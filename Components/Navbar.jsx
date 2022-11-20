@@ -19,7 +19,7 @@ export default function Navbar() {
 
     const router = useRouter()
 
-    console.log(router.pathname);
+
 
     const { formOn, setFormOn, user, setUser, userName, setUserName } =
         useContext(LoginContext);
