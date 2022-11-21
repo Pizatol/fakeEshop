@@ -2,7 +2,8 @@
   display: flex;
   margin-left: 50px;
 }
-.category_container button {
+
+.option_button {
   width: 200px;
   height: 40px;
   border: none;
@@ -12,15 +13,28 @@
   font-size: var(--fontSize0);
   cursor: pointer;
 }
-.category_container button:hover, .category_container button:focus {
-  background-color: var(--yellow1);
+
+.option_button:hover {
+  background-color: var(--yellowShallow);
 }
 
-.left_part, .right_part {
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.left_part,
+.right_part {
   display: flex;
   flex-direction: column;
 }
-.left_part div, .right_part div {
+.left_part div,
+.right_part div {
   display: flex;
   flex-direction: column;
+}
+
+.reset_button {
+  border: none;
+  background-color: transparent;
 }/*# sourceMappingURL=Category.module.css.map */

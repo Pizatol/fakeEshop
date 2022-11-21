@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import css from "../styles/Category.module.scss";
+import Image from "next/image";
 
-export default function Category( {category} ) {
+import cancel_icon from "../public/assets/icons/cancel.svg";
+
+export default function Category({ category, title }) {
     const [vacance, SetVacances] = useState(true);
     const [emploi, SetEmploi] = useState(false);
     const [vehicule, SetVehicule] = useState(false);
     const [immobilier, SetImmobilier] = useState(false);
     const [mode, SetMode] = useState(false);
 
-	 const [value , setValue] = useState('')
+    const [value, setValue] = useState("");
 
-	 
-	 category(value)
-
-	
+    category(value);
 
     const toggleVacances = () => {
         SetVacances(true);
@@ -52,37 +52,64 @@ export default function Category( {category} ) {
     };
 
     return (
-        <div className={css.category_container}>
+        <div
+            className={
+                title === ""
+                    ? `${css.disabled} ${css.category_container}`
+                    : css.category_container
+            }
+        >
+            {/* <div className={css.category_container} > */}
             <div className={css.left_part}>
-                <button type="button" onClick={toggleVacances}>
+                <button className={css.option_button} type="button" onClick={toggleVacances}>
                     {" "}
                     Vacances
                 </button>
-                <button type="button" onClick={toggleEmploi}>
+                <button className={css.option_button} type="button" onClick={toggleEmploi}>
                     {" "}
                     Emploi
                 </button>
-                <button type="button" onClick={toggleVehicule}>
+                <button className={css.option_button} type="button" onClick={toggleVehicule}>
                     {" "}
                     Véhicule
                 </button>
-                <button type="button" onClick={toggleImmo}>
+                <button className={css.option_button} type="button" onClick={toggleImmo}>
                     {" "}
                     Immobilier
                 </button>
-                <button type="button" onClick={toggleMode}>
+                <button className={css.option_button} type="button" onClick={toggleMode}>
                     {" "}
-                    Mode 
+                    Mode
                 </button>
             </div>
 
             <div className={css.right_part}>
                 {vacance ? (
                     <div>
-                        <button onClick={() => setValue("Location&Gites")} type="button">Locations & Gîtes</button>
-                        <button onClick={() => setValue("ChambreHote")} type="button">Chambres d'hôtes</button>
-                        <button onClick={() => setValue("Camping")} type="button">Camping</button>
-                        <button onClick={() => setValue("hebergementsInsolite")} type="button">Hébergements insolites</button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Location & Gîtes")}
+                            type="button"
+                        >
+                            Locations & Gîtes
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Chambre d'hôte")}
+                            type="button"
+                        >
+                            Chambres d'hôtes
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Camping")}
+                            type="button"
+                        >
+                            Camping
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("hebergements insolite")}
+                            type="button"
+                        >
+                            Hébergements insolites
+                        </button>
                     </div>
                 ) : (
                     ""
@@ -90,7 +117,13 @@ export default function Category( {category} ) {
 
                 {emploi ? (
                     <div>
-                        <button onClick={() => setValue("Offre Emploi")} type="button"> Offres d'emloi</button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Offre d'emploi")}
+                            type="button"
+                        >
+                            {" "}
+                            Offres d'emloi
+                        </button>
                     </div>
                 ) : (
                     ""
@@ -98,9 +131,21 @@ export default function Category( {category} ) {
 
                 {vehicule ? (
                     <div>
-                        <button onClick={() => setValue("voitures")} type="button">Voitures</button>
-                        <button onClick={() => setValue("motos")} type="button">Motos</button>
-                        <button onClick={() => setValue("vehicules utilitaires")} type="button">Utilitaires</button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Voitures")}
+                            type="button"
+                        >
+                            Voitures
+                        </button>
+                        <button className={css.option_button} onClick={() => setValue("Motos")} type="button">
+                            Motos
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Véhicules utilitaires")}
+                            type="button"
+                        >
+                            Utilitaires
+                        </button>
                     </div>
                 ) : (
                     ""
@@ -108,10 +153,30 @@ export default function Category( {category} ) {
 
                 {immobilier ? (
                     <div>
-                        <button onClick={() => setValue("vente immobiliere")} type="button">Ventes Immobilières</button>
-                        <button onClick={() => setValue("location")} type="button">Locations</button>
-                        <button onClick={() => setValue("colocation")} type="button">Colocations</button>
-                        <button onClick={() => setValue("bureaux et commerces")} type="button">Bureaux & Commerces</button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Vente immobiliere")}
+                            type="button"
+                        >
+                            Ventes Immobilières
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Location")}
+                            type="button"
+                        >
+                            Locations
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Colocation")}
+                            type="button"
+                        >
+                            Colocations
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Bureaux et commerces")}
+                            type="button"
+                        >
+                            Bureaux & Commerces
+                        </button>
                     </div>
                 ) : (
                     ""
@@ -119,37 +184,66 @@ export default function Category( {category} ) {
 
                 {mode ? (
                     <div>
-                        <button onClick={() => setValue("vetements")} type="button">Vêtements</button>
-                        <button onClick={() => setValue("chaussures")} type="button">Chaussures</button>
-                        <button onClick={() => setValue("accessoires et bagagerie")} type="button">Accessoires & Bagagerie</button>
-                        <button onClick={() => setValue("montres et bijoux")} type="button">Montres & bijoux</button>
-                        <button onClick={() => setValue("equipement bebe")} type="button">Equipement bébé</button>
-                        <button onClick={() => setValue("vetements bebe")} type="button">Vêtements bébé</button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Vêtements")}
+                            type="button"
+                        >
+                            Vêtements
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Chaussures")}
+                            type="button"
+                        >
+                            Chaussures
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Accessoires et bagagerie")}
+                            type="button"
+                        >
+                            Accessoires & Bagagerie
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Montres et bijoux")}
+                            type="button"
+                        >
+                            Montres & bijoux
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Equipement bébé")}
+                            type="button"
+                        >
+                            Equipement bébé
+                        </button>
+                        <button className={css.option_button}
+                            onClick={() => setValue("Vêtements bébé")}
+                            type="button"
+                        >
+                            Vêtements bébé
+                        </button>
                     </div>
                 ) : (
                     ""
                 )}
             </div>
+
+            <h2>{value} </h2>
+            {value !== "" ? (
+                <button
+                    className={css.reset_button}
+                    type="button"
+                    onClick={() => setValue("")}
+                >
+                    {" "}
+                    <Image
+                        src={cancel_icon}
+                        alt="cancel button"
+                        height={40}
+                            width={40}
+                    />
+                </button>
+            ) : (
+                ""
+            )}
         </div>
     );
-}
-
-{
-    /* <label>
-                            Catégorie
-                            <select>
-                                <option value="Mode">Mode</option>
-                                <option value="Maison">Maison</option>
-                                <option value="Bricolage"> Bricolage </option>
-                                <option value="Multimedia">Multimédia</option>
-
-                                <option value=""></option>
-                                <option value=""></option>
-                                <option value=""></option>
-                            </select>
-
-                            <option value="Informatique">Informatique</option>
-                                <option value="Image&Son">Image & Son</option>
-                                <option value="Telephonie">Téléphonie</option>
-                        </label> */
 }
