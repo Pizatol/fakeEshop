@@ -36,6 +36,8 @@ import {
 import Input_image from "../Components/Input_image";
 
 export default function New_annonce() {
+    const dataCollectionRef = collection(db, "products");
+
     const [stateImage, setStateImage] = useState([]);
     const [uploadImage, setUploadImage] = useState([]);
     const [tempoListImg, setTempoListImg] = useState([]);
@@ -45,7 +47,10 @@ export default function New_annonce() {
 
     const [category, setCategory] = useState("");
 
-    const dataCollectionRef = collection(db, "products");
+    const [lat, setLat] = useState(null);
+    const [lng, setLng] = useState(null);
+    const [status, setStatus] = useState(null);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -78,13 +83,32 @@ export default function New_annonce() {
     };
 
     // CONSOLE LOG
-    //    console.log(tempoTitle);
+  
 
     const MapWithNoSSR = dynamic(() => import("../Components/Map"),
      { 
         loading: () => <p>A map is loading</p>,
         ssr: false,
     });
+
+
+    // GEOLOC
+
+    const getLocation = () => {
+        if (!navigator.geolocation) {
+          setStatus('Geolocation is not supported by your browser');
+        } else {
+          setStatus('Locating...');
+          navigator.geolocation.getCurrentPosition((position) => {
+            setStatus(null);
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+          }, () => {
+            setStatus('Unable to retrieve your location');
+          });
+        }
+      }
+   
 
     return (
         <div className={css.global_container}>
@@ -143,7 +167,15 @@ export default function New_annonce() {
             />
 
           
-            <MapWithNoSSR />
+            <MapWithNoSSR lat={lat} lng={lng} />
+
+            <div >
+  <button onClick={getLocation}>Get Location</button>
+  <h1>Coordinates</h1>
+  <p>{status}</p>
+  {lat && <p>Latitude: {lat}</p>}
+  {lng && <p>Longitude: {lng}</p>}
+</div>
         </div>
     );
 }

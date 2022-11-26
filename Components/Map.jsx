@@ -8,14 +8,25 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 
 
-export default function Map() {
+export default function Map( {lat, lng} ) {
 
-    const position = [48.84889654453206, 2.3266729316971877];
+
+
+   
+        const positionDef = [48.84889654453206, 2.3266729316971877];
+        const position = [lat, lng]
+     
+
+    
 
     return (
         <div className={css.global_container}>
+
+
+      
             <MapContainer
-                    center={position}
+                    className={css.map}
+                    center={ lat === null ? (positionDef) : (position) }
                     zoom={14}
                     scrollWheelZoom={false}
                     style={{ height: "100%", width: "100%" }}
@@ -24,7 +35,7 @@ export default function Map() {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Marker position={position} draggable={false} animate={true}>
+                    <Marker position={ lat === null ? (positionDef) : (position) } draggable={false} animate={true}>
                         {/* <Popup>Hey ! you found me</Popup> */}
                     </Marker>
                 </MapContainer>
