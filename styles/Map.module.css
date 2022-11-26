@@ -6,6 +6,10 @@
   overflow: hidden;
 }
 
+.hidden_map {
+  opacity: 0.2;
+}
+
 .homeMap {
   width: 100%;
   height: 20rem;
