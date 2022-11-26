@@ -5,9 +5,18 @@ import css from "../styles/Home.module.scss";
 import { LoginContext } from "../context/LoginContext";
 import Link from "next/link";
 
+
+
+
 import front_page from "../public/assets/Pictures/front_page_image/front_page.jpg";
+import dynamic from "next/dynamic";
 
 export default function Home() {
+
+
+
+
+    
     return (
         <div className={css.global_container}>
             <Head>

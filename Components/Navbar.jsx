@@ -19,10 +19,11 @@ export default function Navbar() {
 
     const router = useRouter()
 
-
-
+    
+    
     const { formOn, setFormOn, user, setUser, userName, setUserName } =
-        useContext(LoginContext);
+    useContext(LoginContext);
+    FirebaseAuthService.subscribeToAuthChanges(setUser);
 
     const toggleForm = () => {
         setFormOn(!formOn);

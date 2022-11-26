@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import css from "../styles/New_annonce.module.scss";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 import { db } from "../Firebase/FirebaseConfig";
 import { storage } from "../Firebase/FirebaseConfig";
@@ -12,7 +12,7 @@ import { v4 } from "uuid";
 
 import cancel_icon from "../public/assets/icons/cancel.svg";
 import Category from "../Components/Category";
-
+import Map from "../Components/Map/Map";
 
 import {
     uploadBytes,
@@ -74,15 +74,28 @@ export default function New_annonce() {
         e.preventDefault();
         setTitle(tempoTitle);
         setTempoTitle("");
+        window.scrollBy(0, 100);
     };
 
     // CONSOLE LOG
     //    console.log(tempoTitle);
 
+    const MapWithNoSSR = dynamic(() => import("../Components/Map"),
+     { 
+        loading: () => <p>A map is loading</p>,
+        ssr: false,
+    });
+
     return (
-        <div>
+        <div className={css.global_container}>
             <form onSubmit={(e) => handleTitle(e)}>
-                <div className={ title === "" ? `${css.name_input_container}` : `${css.name_input_container} ${css.disabled}`}>
+                <div
+                    className={
+                        title === ""
+                            ? `${css.name_input_container}`
+                            : `${css.name_input_container} ${css.disabled}`
+                    }
+                >
                     <label>
                         Titre :
                         <input
@@ -100,18 +113,18 @@ export default function New_annonce() {
                     <div>
                         <h1> {title} </h1>
                         <button
-                    className={css.reset_button}
-                    type="button"
-                    onClick={() => setTitle("")}
-                >
-                    {" "}
-                    <Image
-                        src={cancel_icon}
-                        alt="cancel button"
-                        height={40}
-                            width={40}
-                    />
-                </button>
+                            className={css.reset_button}
+                            type="button"
+                            onClick={() => setTitle("")}
+                        >
+                            {" "}
+                            <Image
+                                src={cancel_icon}
+                                alt="cancel button"
+                                height={40}
+                                width={40}
+                            />
+                        </button>
                     </div>
                 ) : (
                     <div>
@@ -128,6 +141,9 @@ export default function New_annonce() {
                 uploadImage={uploadImage}
                 setUploadImage={setUploadImage}
             />
+
+          
+            <MapWithNoSSR />
         </div>
     );
 }
