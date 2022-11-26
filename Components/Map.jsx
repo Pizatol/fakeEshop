@@ -76,7 +76,7 @@ export default function Map() {
                     draggable={false}
                     animate={true}
                 >
-                    {/* <Popup>Hey ! you found me</Popup> */}
+                 
                 </Marker>
             </MapContainer>
         </div>

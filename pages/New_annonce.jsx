@@ -13,7 +13,7 @@ import Geocode from "react-geocode";
 
 import cancel_icon from "../public/assets/icons/cancel.svg";
 import Category from "../Components/Category";
-import Map from "../Components/Map/Map";
+import Button_validate from "../Components/buttons/button_validate";
 
 import {
     uploadBytes,
@@ -78,14 +78,10 @@ export default function New_annonce() {
         window.scrollBy(0, 100);
     };
 
-    // CONSOLE LOG
-
     const MapWithNoSSR = dynamic(() => import("../Components/Map"), {
         loading: () => <p>A map is loading</p>,
         ssr: false,
     });
-
-
 
     return (
         <div className={css.global_container}>
@@ -104,9 +100,11 @@ export default function New_annonce() {
                             onChange={(e) => setTempoTitle(e.target.value)}
                             type="text"
                         />
-                        <button type="submit"> Valider</button>
+                        {/* <button type="submit"> Valider</button> */}
+                        <Button_validate props={"valider"}   />
                     </label>
                 </div>
+                
             </form>
 
             <div className={css.title_field_container}>
@@ -143,9 +141,7 @@ export default function New_annonce() {
                 setUploadImage={setUploadImage}
             />
 
-          
-
-            <MapWithNoSSR  />
+            <MapWithNoSSR />
         </div>
     );
 }
