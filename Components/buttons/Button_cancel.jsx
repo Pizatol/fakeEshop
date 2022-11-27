@@ -1,13 +1,14 @@
 import React from "react";
-import css from "../../styles/Button_validate.module.scss";
+import css from "../../styles/Button_cancel.module.scss";
 
-export default function Button_validate({ props, title }) {
+export default function Button_cancel({ props, toggleCancel }) {
     return (
         <>
             <button
+					onClick={toggleCancel}
                 type="submit"
                 className={
-                    title !== ""
+						toggleCancel !== ""
                         ? `${css.global_container}`
                         : ` ${css.disabled}`
                 }

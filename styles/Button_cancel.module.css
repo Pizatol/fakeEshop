@@ -13,7 +13,7 @@
   display: inline-block;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
-  background: var(--blueColor1);
+  background: var(--red1);
   border: none;
   z-index: 1;
 }
@@ -27,7 +27,7 @@
   left: 0;
   z-index: -1;
   border-radius: 5px;
-  background: var(--blueColor1Dark);
+  background: var(--redDark1);
   box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.6), -4px -4px 5px 0px rgba(255, 255, 255, 0.6), 7px 7px 20px 0px rgba(0, 0, 0, 0.1333333333), 4px 4px 5px 0px rgba(0, 0, 0, 0.0666666667);
   transition: all 0.3s ease;
 }
@@ -60,4 +60,4 @@
   color: #ccc;
   cursor: no-drop;
   border: none;
-}/*# sourceMappingURL=Button_validate.module.css.map */
+}/*# sourceMappingURL=Button_cancel.module.css.map */

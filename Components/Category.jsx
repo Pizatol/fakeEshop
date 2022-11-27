@@ -3,247 +3,310 @@ import css from "../styles/Category.module.scss";
 import Image from "next/image";
 
 import cancel_icon from "../public/assets/icons/cancel.svg";
+import Button_cancel from "./buttons/Button_cancel";
 
 export default function Category({ category, title }) {
-    const [vacance, SetVacances] = useState(true);
-    const [emploi, SetEmploi] = useState(false);
-    const [vehicule, SetVehicule] = useState(false);
-    const [immobilier, SetImmobilier] = useState(false);
     const [mode, SetMode] = useState(false);
+    const [multimedia, setMultimedia] = useState(false);
+    const [loisirs, setLoisirs] = useState(false);
+    const [animaux, setAnimaux] = useState(false);
 
     const [value, setValue] = useState("");
 
     category(value);
 
-    const toggleVacances = () => {
-        SetVacances(true);
-        SetEmploi(false);
-        SetVehicule(false);
-        SetImmobilier(false);
-        SetMode(false);
-    };
-    const toggleImmo = () => {
-        SetVacances(false);
-        SetEmploi(false);
-        SetVehicule(false);
-        SetImmobilier(true);
-        SetMode(false);
-    };
-    const toggleEmploi = () => {
-        SetVacances(false);
-        SetEmploi(true);
-        SetVehicule(false);
-        SetImmobilier(false);
-        SetMode(false);
-    };
-    const toggleVehicule = () => {
-        SetVacances(false);
-        SetEmploi(false);
-        SetVehicule(true);
-        SetImmobilier(false);
-        SetMode(false);
-    };
     const toggleMode = () => {
-        SetVacances(false);
-        SetEmploi(false);
-        SetVehicule(false);
-        SetImmobilier(false);
         SetMode(true);
+        setMultimedia(false);
+        setLoisirs(false);
+        setAnimaux(false);
     };
+    const toggleMultimedia = () => {
+        SetMode(false);
+        setMultimedia(true);
+        setLoisirs(false);
+        setAnimaux(false);
+    };
+    const toggleLoisirs = () => {
+        SetMode(false);
+        setMultimedia(false);
+        setLoisirs(true);
+        setAnimaux(false);
+    };
+    const toggleAnimaux = () => {
+        SetMode(false);
+        setMultimedia(false);
+        setLoisirs(false);
+        setAnimaux(true);
+    };
+
+
+
+
+    const toggleCancel = () => {
+        setValue("")
+    }
 
     return (
         <div
             className={
                 title === ""
-                    ? `${css.disabled} ${css.category_container}`
+                    ? `${css.hidden} ${css.category_container}`
                     : css.category_container
             }
         >
-            {/* <div className={css.category_container} > */}
-            <div className={css.left_part}>
-                <button className={css.option_button} type="button" onClick={toggleVacances}>
-                    {" "}
-                    Vacances
-                </button>
-                <button className={css.option_button} type="button" onClick={toggleEmploi}>
-                    {" "}
-                    Emploi
-                </button>
-                <button className={css.option_button} type="button" onClick={toggleVehicule}>
-                    {" "}
-                    Véhicule
-                </button>
-                <button className={css.option_button} type="button" onClick={toggleImmo}>
-                    {" "}
-                    Immobilier
-                </button>
-                <button className={css.option_button} type="button" onClick={toggleMode}>
-                    {" "}
-                    Mode
-                </button>
+            <div
+                className={!value ? `${css.choix_container}` : `${css.hidden}`}
+            >
+                {/* <div className={css.category_container} > */}
+                <div className={css.left_part}>
+                    <button
+                        className={css.option_button}
+                        type="button"
+                        onClick={toggleMode}
+                    >
+                        {" "}
+                        Mode
+                    </button>
+
+                    <button
+                        className={css.option_button}
+                        type="button"
+                        onClick={toggleMultimedia}
+                    >
+                        {" "}
+                        Multimedia
+                    </button>
+                    <button
+                        className={css.option_button}
+                        type="button"
+                        onClick={toggleLoisirs}
+                    >
+                        {" "}
+                        Loisirs
+                    </button>
+                    <button
+                        className={css.option_button}
+                        type="button"
+                        onClick={toggleAnimaux}
+                    >
+                        {" "}
+                        Animaux
+                    </button>
+                </div>
+
+                <div className={css.right_part}>
+                    {/* MODE */}
+                    {mode ? (
+                        <div>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Vêtements")}
+                                type="button"
+                            >
+                                Vêtements
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Chaussures")}
+                                type="button"
+                            >
+                                Chaussures
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() =>
+                                    setValue("Accessoires et bagagerie")
+                                }
+                                type="button"
+                            >
+                                Accessoires & Bagagerie
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Montres et bijoux")}
+                                type="button"
+                            >
+                                Montres & bijoux
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Equipement bébé")}
+                                type="button"
+                            >
+                                Equipement bébé
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Vêtements bébé")}
+                                type="button"
+                            >
+                                Vêtements bébé
+                            </button>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    {/* MULTUIMEDIA */}
+                    {multimedia ? (
+                        <div>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Informatique")}
+                                type="button"
+                            >
+                                Informatique
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() =>
+                                    setValue("Consoles & jeux vidéos")
+                                }
+                                type="button"
+                            >
+                                Consoles & jeux vidéos
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Image et son")}
+                                type="button"
+                            >
+                                Image et son
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Téléphonie")}
+                                type="button"
+                            >
+                                Téléphonie
+                            </button>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    {/* LOISIRS */}
+                    {loisirs ? (
+                        <div>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("DVD - Films")}
+                                type="button"
+                            >
+                                DVD - Films
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("CD Musique")}
+                                type="button"
+                            >
+                                CD - Musique
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Livres")}
+                                type="button"
+                            >
+                                Livres
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Vélos")}
+                                type="button"
+                            >
+                                Vélos
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Sports & Hobbies")}
+                                type="button"
+                            >
+                                Sports et hobbies
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() =>
+                                    setValue("Instruments de musique")
+                                }
+                                type="button"
+                            >
+                                Instruments de musique
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Collection")}
+                                type="button"
+                            >
+                                Collection
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Jeux & jouets")}
+                                type="button"
+                            >
+                                Jeux & jouets
+                            </button>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Vins & gastronomie")}
+                                type="button"
+                            >
+                                Vins & gastronomie
+                            </button>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    {animaux ? (
+                        <div>
+                            <button
+                                className={css.option_button}
+                                onClick={() => setValue("Animaux")}
+                                type="button"
+                            >
+                                Animaux
+                            </button>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                </div>
             </div>
+            <div className={css.result_container}>
+                <div className={css.result_field}>
+                    <h2> {value} </h2>
+                </div>
 
-            <div className={css.right_part}>
-                {vacance ? (
-                    <div>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Location & Gîtes")}
-                            type="button"
-                        >
-                            Locations & Gîtes
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Chambre d'hôte")}
-                            type="button"
-                        >
-                            Chambres d'hôtes
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Camping")}
-                            type="button"
-                        >
-                            Camping
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("hebergements insolite")}
-                            type="button"
-                        >
-                            Hébergements insolites
-                        </button>
-                    </div>
-                ) : (
-                    ""
-                )}
+                <div>
+                    {value !== "" ? (
 
-                {emploi ? (
-                    <div>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Offre d'emploi")}
-                            type="button"
-                        >
-                            {" "}
-                            Offres d'emloi
-                        </button>
-                    </div>
-                ) : (
-                    ""
-                )}
+                        <Button_cancel
+                        
+                        props={"Annuler"}
+                                        toggleCancel={toggleCancel}
+                         />
 
-                {vehicule ? (
-                    <div>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Voitures")}
-                            type="button"
-                        >
-                            Voitures
-                        </button>
-                        <button className={css.option_button} onClick={() => setValue("Motos")} type="button">
-                            Motos
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Véhicules utilitaires")}
-                            type="button"
-                        >
-                            Utilitaires
-                        </button>
-                    </div>
-                ) : (
-                    ""
-                )}
-
-                {immobilier ? (
-                    <div>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Vente immobiliere")}
-                            type="button"
-                        >
-                            Ventes Immobilières
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Location")}
-                            type="button"
-                        >
-                            Locations
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Colocation")}
-                            type="button"
-                        >
-                            Colocations
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Bureaux et commerces")}
-                            type="button"
-                        >
-                            Bureaux & Commerces
-                        </button>
-                    </div>
-                ) : (
-                    ""
-                )}
-
-                {mode ? (
-                    <div>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Vêtements")}
-                            type="button"
-                        >
-                            Vêtements
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Chaussures")}
-                            type="button"
-                        >
-                            Chaussures
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Accessoires et bagagerie")}
-                            type="button"
-                        >
-                            Accessoires & Bagagerie
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Montres et bijoux")}
-                            type="button"
-                        >
-                            Montres & bijoux
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Equipement bébé")}
-                            type="button"
-                        >
-                            Equipement bébé
-                        </button>
-                        <button className={css.option_button}
-                            onClick={() => setValue("Vêtements bébé")}
-                            type="button"
-                        >
-                            Vêtements bébé
-                        </button>
-                    </div>
-                ) : (
-                    ""
-                )}
+                      
+                        
+                    ) : (
+                        ""
+                    )}
+                </div>
             </div>
-
-            <h2>{value} </h2>
-            {value !== "" ? (
-                <button
-                    className={css.reset_button}
-                    type="button"
-                    onClick={() => setValue("")}
-                >
-                    {" "}
-                    <Image
-                        src={cancel_icon}
-                        alt="cancel button"
-                        height={40}
-                            width={40}
-                    />
-                </button>
-            ) : (
-                ""
-            )}
         </div>
     );
 }
+
+
+  {/* <button
+                            className={css.reset_button}
+                            type="button"
+                            onClick={() => setValue("")}
+                        >
+                            {" "}
+                            <Image
+                                src={cancel_icon}
+                                alt="cancel button"
+                                height={40}
+                                width={40}
+                            />
+                        </button> */}

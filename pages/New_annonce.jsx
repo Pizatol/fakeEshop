@@ -12,8 +12,10 @@ import { v4 } from "uuid";
 import Geocode from "react-geocode";
 
 import cancel_icon from "../public/assets/icons/cancel.svg";
+import cancel_white from "../public/assets/icons/cancel_white.svg";
 import Category from "../Components/Category";
-import Button_validate from "../Components/buttons/button_validate";
+import Button_validate from "../Components/buttons/Button_validate";
+import Button_cancel from "../Components/buttons/Button_cancel";
 
 import {
     uploadBytes,
@@ -43,8 +45,8 @@ export default function New_annonce() {
     const [uploadImage, setUploadImage] = useState([]);
     const [tempoListImg, setTempoListImg] = useState([]);
 
-    const [title, setTitle] = useState("");
     const [tempoTitle, setTempoTitle] = useState("");
+    const [title, setTitle] = useState("");
 
     const [category, setCategory] = useState("");
 
@@ -72,10 +74,18 @@ export default function New_annonce() {
     };
 
     const handleTitle = (e) => {
-        e.preventDefault();
-        setTitle(tempoTitle);
+        if (tempoTitle) {
+            e.preventDefault();
+            setTitle(tempoTitle);
+
+            window.scrollBy(0, 300);
+        } else {
+            e.preventDefault();
+        }
+    };
+    const toggleCancel = () => {
+        setTitle("");
         setTempoTitle("");
-        window.scrollBy(0, 100);
     };
 
     const MapWithNoSSR = dynamic(() => import("../Components/Map"), {
@@ -83,54 +93,85 @@ export default function New_annonce() {
         ssr: false,
     });
 
+    console.log(title);
     return (
         <div className={css.global_container}>
-            <form onSubmit={(e) => handleTitle(e)}>
-                <div
-                    className={
-                        title === ""
-                            ? `${css.name_input_container}`
-                            : `${css.name_input_container} ${css.disabled}`
-                    }
-                >
-                    <label>
-                        Titre :
-                        <input
-                            value={tempoTitle}
-                            onChange={(e) => setTempoTitle(e.target.value)}
-                            type="text"
-                        />
-                        {/* <button type="submit"> Valider</button> */}
-                        <Button_validate props={"valider"}   />
-                    </label>
+            {/* TITRE */}
+            <div className={title ? "" : ""}>
+                <div className={css.title}>
+                    <h1>Déposer une annonce</h1>
                 </div>
-                
-            </form>
 
-            <div className={css.title_field_container}>
-                {title ? (
-                    <div>
-                        <h1> {title} </h1>
-                        <button
-                            className={css.reset_button}
-                            type="button"
-                            onClick={() => setTitle("")}
-                        >
-                            {" "}
-                            <Image
-                                src={cancel_icon}
-                                alt="cancel button"
-                                height={40}
-                                width={40}
-                            />
-                        </button>
-                    </div>
-                ) : (
-                    <div>
-                        <h1></h1>
-                    </div>
-                )}
+                <div className={css.title_announcement_container}>
+                    <form onSubmit={(e) => handleTitle(e)}>
+                        <div className={css.subtitle}>
+                            <p>Quel est le titre de l'annonce ?</p>
+                        </div>
+
+                        <div className={css.flex}>
+                            <label>
+                                {title ? (
+                                    <input
+                                        type="text"
+                                        className={
+                                            title === ""
+                                                ? `${css.name_input_container}`
+                                                : `${css.name_input_container} ${css.disabled}`
+                                        }
+                                        value={tempoTitle}
+                                        onChange={(e) =>
+                                            setTempoTitle(e.target.value)
+                                        }
+                                        disabled
+                                    />
+                                ) : (
+                                    <input
+                                        type="text"
+                                        className={
+                                            title === ""
+                                                ? `${css.name_input_container}`
+                                                : `${css.name_input_container} ${css.disabled}`
+                                        }
+                                        value={tempoTitle}
+                                        onChange={(e) =>
+                                            setTempoTitle(e.target.value)
+                                        }
+                                    />
+                                )}
+
+                                {!title ? (
+                                    <Button_validate
+                                        props={"Valider"}
+                                        title={tempoTitle}
+                                    />
+                                ) : (
+                                    ""
+                                )}
+
+                                {title ? (
+                                    <Button_cancel
+                                        props={"Annuler"}
+                                        toggleCancel={toggleCancel}
+                                    />
+                                ) : (
+                                    ``
+                                )}
+                            </label>
+                            <span
+                                className={
+                                    tempoTitle.length < 1 && title === ""
+                                        ? `${css.span_title}`
+                                        : `${css.span_title_hidden}`
+                                }
+                            >
+                                Veuillez donner un titre à votre annonce{" "}
+                            </span>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+            <div className={css.title_field_container}></div>
 
             <Category category={setCategory} title={title} />
 

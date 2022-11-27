@@ -1,30 +1,57 @@
 .global_container {
+  max-width: 1200px;
+  margin: auto;
   height: 200vh;
   scroll-behavior: smooth;
-}
-
-.buttons_container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-family: var(--Amaranth);
-  font-size: var(--fontSize0);
+  font-family: var(--DM);
   color: var(--darkColor1);
-  width: 550px;
-  height: 50px;
-  padding: 15px 10px;
-  flex-wrap: nowrap;
-  border-radius: 10px;
-  transition: all 0.3s ease;
 }
 
-.left_part_buttons {
-  display: flex;
-  align-items: flex-end;
+.title {
+  font-family: var(--DM);
+  font-size: var(--fontSize1);
+}
+
+.subtitle {
+  transform: translate(0px, 10px);
+  font-family: var(--DM);
+  font-size: var(--fontSize0);
 }
 
 .name_input_container {
-  color: red;
+  height: 40px;
+  width: 350px;
+  border: 1px solid var(--darkColor1);
+  border-radius: 5px;
+  font-family: var(--DM);
+  font-size: var(--fontSize0);
+  margin-right: 20px;
+  padding-left: 10px;
+}
+
+.name_input_container:focus {
+  outline: none;
+  border: 2px solid var(--blueColor1);
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.span_title {
+  opacity: 1;
+  font-family: var(--DM);
+  font-size: var(--fontSize0);
+  color: var(--red1);
+}
+
+.hidden {
+  display: none;
+}
+
+.span_title_hidden {
+  opacity: 0;
 }
 
 .disabled {
@@ -33,5 +60,52 @@
 }
 
 .title_field_container {
-  height: 60px;
+  height: auto;
+}
+
+.title_field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 600px;
+  font-family: var(--DM);
+  font-size: var(--fontSize0);
+}
+.title_field h1 {
+  margin: 20px;
+}
+
+.reset_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: var(--red1);
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: 2px solid var(--red1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset_button:hover {
+  color: var(--whiteColor1);
+  background-color: var(--red1);
+  -webkit-animation: pulse 1s;
+          animation: pulse 1s;
+  box-shadow: 0 0 0 0.8em transparent;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--red1Light);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--red1Light);
+  }
 }/*# sourceMappingURL=New_annonce.module.css.map */
