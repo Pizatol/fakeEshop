@@ -88,24 +88,4 @@
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.reset_button:hover {
-  color: var(--whiteColor1);
-  background-color: var(--red1);
-  -webkit-animation: pulse 1s;
-          animation: pulse 1s;
-  box-shadow: 0 0 0 0.8em transparent;
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--red1Light);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--red1Light);
-  }
 }/*# sourceMappingURL=New_annonce.module.css.map */

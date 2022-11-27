@@ -175,6 +175,8 @@ export default function New_annonce() {
 
             <Category category={setCategory} title={title} />
 
+            <MapWithNoSSR />
+            
             <Input_image
                 stateImage={stateImage}
                 setStateImage={setStateImage}
@@ -182,7 +184,6 @@ export default function New_annonce() {
                 setUploadImage={setUploadImage}
             />
 
-            <MapWithNoSSR />
         </div>
     );
 }

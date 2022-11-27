@@ -1,23 +1,29 @@
 
-
-
-
 .global_container {
-	height: 300px;
-	width: 500px;
-	border: 1px solid black;
-	
-	border-radius: 15px;
-	overflow: hidden;
-	
+	margin: 20px 20px;
+	border: 1px solid red;
+	height: auto;
+}
+
+.inputs_container {
+	margin: 20px;
+}
+
+
+
+.map_container {
+    height: 300px;
+    width: 500px;
+    border: 1px solid black;
+
+    border-radius: 15px;
+    overflow: hidden;
 }
 .hidden_map {
-	opacity: .2;
+    opacity: 0.2;
 }
 
-
-
 .homeMap {
-	width: 100%;
-	height: 20rem;
- }
+    width: 100%;
+    height: 20rem;
+}

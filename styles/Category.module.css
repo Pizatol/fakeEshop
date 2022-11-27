@@ -4,6 +4,7 @@
   flex-direction: column;
   height: auto;
   margin: auto;
+  font-family: var(--DM);
 }
 
 .hidden {
@@ -65,9 +66,10 @@
   margin-right: 20px;
   padding-left: 10px;
 }
-.result_field h2 {
+.result_field p {
   margin: 0;
   font-size: var(--fontSize0);
-  padding-left: 10px;
+  font-family: var(--DM);
+  padding-left: 5px;
   pointer-events: none;
 }/*# sourceMappingURL=Category.module.css.map */

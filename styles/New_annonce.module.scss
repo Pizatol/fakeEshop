@@ -98,17 +98,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.reset_button:hover {
-    color: var(--whiteColor1);
-    background-color: var(--red1);
-    animation: pulse 1s;
-    box-shadow: 0 0 0 0.8em transparent;
-}
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 var(--red1Light);
-    }
-}
+
 
 // .buttons_container {
 //     display: flex;

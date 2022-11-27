@@ -271,9 +271,10 @@ export default function Category({ category, title }) {
                     )}
                 </div>
             </div>
-            <div className={css.result_container}>
+                {value ? (
+                    <div className={css.result_container}>
                 <div className={css.result_field}>
-                    <h2> {value} </h2>
+                    <p> {value} </p>
                 </div>
 
                 <div>
@@ -292,6 +293,9 @@ export default function Category({ category, title }) {
                     )}
                 </div>
             </div>
+                ) : ''}
+
+            
         </div>
     );
 }
