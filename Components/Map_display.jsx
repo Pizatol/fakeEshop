@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState, useRef } from "react";
-import css from "../styles/Map.module.scss";
+import css from "../styles/Map_display.module.scss";
 
 
 import {
@@ -19,7 +19,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 
 
-export default function Map_display( {positionDef, lat, lng, addressGlobal }) {
+export default function Map_display( {positionDef, lat, lng }) {
 
 
 	const FlyMap =  () => {
@@ -36,9 +36,7 @@ export default function Map_display( {positionDef, lat, lng, addressGlobal }) {
 			  draggable={false}
 			  animate={true}
 		 >
-			{/* <Popup>
-				{addressGlobal}
-		        </Popup> */}
+		
 		 </Marker>
 			 );
 		} else {

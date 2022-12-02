@@ -1,26 +1,38 @@
 .global_container {
-  margin: 20px 20px;
-  border: 1px solid red;
+  margin-top: 30px;
   height: auto;
-}
-
-.inputs_container {
-  margin: 20px;
-}
-
-.map_container {
-  height: 300px;
-  width: 500px;
-  border: 1px solid black;
-  border-radius: 15px;
-  overflow: hidden;
+  color: var(--darkColor2);
+  font-family: var(--DM);
+  font-size: var(--fontSize0);
 }
 
 .hidden_map {
   display: none;
 }
 
-.homeMap {
-  width: 100%;
-  height: 20rem;
+.form_container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-width: 1000px;
+}
+
+.name_container input, .adress_container input {
+  height: 40px;
+  width: 350px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border: 1px solid var(--darkColor1);
+  outline: none;
+  border-radius: 5px;
+  font-family: var(--DM);
+}
+
+.adress_container {
+  margin-bottom: 10px;
+}
+
+.input_field:focus {
+  outline: none;
+  border: 2px solid var(--blueColor1);
 }/*# sourceMappingURL=Map.module.css.map */

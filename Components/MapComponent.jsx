@@ -2,27 +2,33 @@ import React, { useEffect, useState, useRef } from "react";
 import css from "../styles/Map.module.scss";
 import dynamic from "next/dynamic";
 
-import Map_display from "./Map_display";
+import Button_validate from "./buttons/Button_validate";
+import Button_cancel from "./buttons/Button_cancel";
 
 import Geocode from "react-geocode";
 
 export default function MapComponent({ category }) {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
     const [adress, setAdress] = useState("");
     const [postal, setPostal] = useState("");
     const [city, setCity] = useState("");
-    const [country, setCountry] = useState("France");
+    const [country, setCountry] = useState("");
     const [addressGlobal, setAddressGlobal] = useState("");
 
     const positionDef = [46.6048, 1.44419];
 
     const mapRef = useRef();
 
-    const MapDynamicDiplay = dynamic(() => import("../Components/Map_display"), {
-        loading: () => <p>A map is loading</p>,
-        ssr: false,
-    });
+    const MapDynamicDiplay = dynamic(
+        () => import("../Components/Map_display"),
+        {
+            loading: () => <p>A map is loading</p>,
+            ssr: false,
+        }
+    );
 
     const handleAdress = async (e) => {
         e.preventDefault();
@@ -43,11 +49,6 @@ export default function MapComponent({ category }) {
                     setLng(res.lng);
 
                     console.log(lat, lng);
-
-                    setAdress("");
-                    setPostal("");
-                    setCity("");
-                    setCountry("France");
                 },
                 (error) => {
                     console.error(error);
@@ -56,7 +57,15 @@ export default function MapComponent({ category }) {
         }, 250);
     };
 
-    
+    const reset_fields = () => {
+        setLat(0);
+        setLng(0);
+        setAdress("");
+        setPostal("");
+        setCity("");
+        setCountry("");
+        setAddressGlobal("");
+    };
 
     useEffect(() => {
         setAddressGlobal(adress + ", " + postal + " " + city + ", " + country);
@@ -74,17 +83,33 @@ export default function MapComponent({ category }) {
                 {/* <button onClick={getLocation}>Get Location</button> */}
 
                 <form onSubmit={handleAdress} className={css.form_container}>
-                    {/* <div className={css.name_container}>
-                        <label >
-                            <input type="text" placeholder="Nom" />
+                    <div className={css.name_container}>
+                        <label>
+                            <input
+                                required
+                                onChange={(e) => setFirstName(e.target.value)}
+                                value={firstName}
+                                className={css.input_field}
+                                type="text"
+                                placeholder="Nom"
+                            />
                         </label>
-                        <label >
-                            <input type="text" placeholder="Prénom" />
+                        <label>
+                            <input
+                                onChange={(e) => setLastName(e.target.value)}
+                                required
+                                value={lastName}
+                                className={css.input_field}
+                                type="text"
+                                placeholder="Prénom"
+                            />
                         </label>
-                    </div> */}
+                    </div>
                     <div className={css.adress_container}>
                         <label required>
                             <input
+                                required
+                                className={css.input_field}
                                 onChange={(e) => setAdress(e.target.value)}
                                 type="text"
                                 placeholder="Addresse"
@@ -93,6 +118,8 @@ export default function MapComponent({ category }) {
                         </label>
                         <label required>
                             <input
+                                required
+                                className={css.input_field}
                                 onChange={(e) => setPostal(e.target.value)}
                                 type="number"
                                 placeholder="Code postal"
@@ -101,6 +128,8 @@ export default function MapComponent({ category }) {
                         </label>
                         <label required>
                             <input
+                                required
+                                className={css.input_field}
                                 onChange={(e) => setCity(e.target.value)}
                                 type="text"
                                 placeholder="Ville"
@@ -109,19 +138,34 @@ export default function MapComponent({ category }) {
                         </label>
                         <label required>
                             <input
+                                required
+                                className={css.input_field}
                                 onChange={(e) => setCountry(e.target.value)}
                                 type="text"
                                 placeholder="Pays"
                                 value={country}
                             />
                         </label>
-                        <button type="submit">valider</button>
                     </div>
+                    {/* <button type="submit">valider</button> */}
+                    {lat === 0 ? (
+                        <Button_validate props={"Valider"} />
+                    ) : (
+                        <Button_cancel
+                            toggleCancel={reset_fields}
+                            props={"Annuler"}
+                        />
+                    )}
                 </form>
             </div>
 
             <div>
-                <MapDynamicDiplay addressGlobal={addressGlobal} positionDef={positionDef} lat={lat} lng={lng} />
+                <MapDynamicDiplay
+                    addressGlobal={addressGlobal}
+                    positionDef={positionDef}
+                    lat={lat}
+                    lng={lng}
+                />
             </div>
         </div>
     );
