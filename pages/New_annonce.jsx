@@ -178,12 +178,12 @@ export default function New_annonce() {
 
             <MapWithNoSSR category={category} />
 
-            <Input_image
+            {/* <Input_image
                 stateImage={stateImage}
                 setStateImage={setStateImage}
                 uploadImage={uploadImage}
                 setUploadImage={setUploadImage}
-            />
+            /> */}
         </div>
     );
 }

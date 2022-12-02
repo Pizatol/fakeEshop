@@ -1,105 +1,75 @@
 import React, { useEffect, useState, useRef } from "react";
 import css from "../styles/Map.module.scss";
+import dynamic from "next/dynamic";
 
-import {
-    MapContainer,
-    TileLayer,
-    Marker,
-    Popup,
-    useMap,
-    useMapEvents,
-    Map,
-} from "react-leaflet";
-
-// import "leaflet/dist/leaflet.css";
-// import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
-// import "leaflet-defaulticon-compatibility";
+import Map_display from "./Map_display";
 
 import Geocode from "react-geocode";
 
-export default function MapComponent( {category} ) {
-    const [lati, setLat] = useState(0);
-    const [lngi, setLng] = useState(0);
-    const [status, setStatus] = useState(null);
-
+export default function MapComponent({ category }) {
+    const [lat, setLat] = useState(0);
+    const [lng, setLng] = useState(0);
     const [adress, setAdress] = useState("");
-    const [postal, setPostal] = useState(0);
+    const [postal, setPostal] = useState("");
     const [city, setCity] = useState("");
     const [country, setCountry] = useState("France");
-
     const [addressGlobal, setAddressGlobal] = useState("");
 
-
-    const positionDef = [48.84889654453206, 2.3266729316971877];
-    const position = [lati, lngi];
+    const positionDef = [46.6048, 1.44419];
 
     const mapRef = useRef();
 
-    const handleAdress = (e) => {
+    const MapDynamicDiplay = dynamic(() => import("../Components/Map_display"), {
+        loading: () => <p>A map is loading</p>,
+        ssr: false,
+    });
+
+    const handleAdress = async (e) => {
         e.preventDefault();
-        setAddressGlobal(adress + " " + postal + " " + city + " " + country);
-        
-        getLocation();
-    };
 
-    const FlyMap = () => {
-        const map = useMap();
-        if (lati !== 0) {
-            map.flyTo(position, 15, {
-                duration: 3,
-            });
-        }
-        return null;
-    };
-
-    // GEOLOC
-    const getLocation = () => {
-        Geocode.setApiKey(process.env.NEXT_PUBLIC_API_KEY_GOOGLE_MAP);
+        const apiKey = Geocode.setApiKey(
+            process.env.NEXT_PUBLIC_API_KEY_GOOGLE_MAP
+        );
         const regard = "10 rue du regard, 75006 Paris, France";
 
         // FROM ADRESS
-        Geocode.fromAddress(position).then(
-            (response) => {
-                const { lat, lng } = response.results[0].geometry.location;
 
-                setLat(lat);
-                setLng(lng);
-                console.log("position", position);
+        setTimeout(() => {
+            const fromAdd = Geocode.fromAddress(addressGlobal).then(
+                (response) => {
+                    const res = response.results[0].geometry.location;
 
+                    setLat(res.lat);
+                    setLng(res.lng);
 
-                //    FROM LAT LONG
-Geocode.fromLatLng(lat , lng).then(
-    (response) => {
-        const address = response.results[0].formatted_address;
-        console.log( "ADRESS !" ,address);
-    },
-    (error) => {
-        console.log(error.message);
-    }
-    );
+                    console.log(lat, lng);
 
-                setAdress("");
-                setPostal(0);
-                setCity("");
-                setCountry("France");
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
+                    setAdress("");
+                    setPostal("");
+                    setCity("");
+                    setCountry("France");
+                },
+                (error) => {
+                    console.error(error);
+                }
+            );
+        }, 250);
     };
 
+    
+
+    useEffect(() => {
+        setAddressGlobal(adress + ", " + postal + " " + city + ", " + country);
+    }, [adress, postal, city, country, addressGlobal]);
+
     return (
-        <div 
-         className={
-                    category === ""
-                        ? `${css.global_container} ${css.hidden_map}`
-                        : `${css.global_container}`
-                }
+        <div
+            className={
+                category === ""
+                    ? `${css.global_container} ${css.hidden_map}`
+                    : `${css.global_container}`
+            }
         >
-
-
-
             <div className={css.inputs_container}>
                 {/* <button onClick={getLocation}>Get Location</button> */}
 
@@ -149,33 +119,9 @@ Geocode.fromLatLng(lat , lng).then(
                     </div>
                 </form>
             </div>
-            <div
-                className={
-                    lati === 0
-                        ? `${css.map_container} ${css.hidden_map}`
-                        : `${css.map_container}`
-                }
-            >
-                <MapContainer
-                    className={css.map}
-                    center={position}
-                    // center={lati !== null ?   position : positionDef}
-                    zoom={14}
-                    scrollWheelZoom={false}
-                    style={{ height: "100%", width: "100%" }}
-                >
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker
-                        position={position}
-                        draggable={false}
-                        animate={true}
-                    ></Marker>
 
-                    {/* <FlyMap /> */}
-                </MapContainer>
+            <div>
+                <MapDynamicDiplay addressGlobal={addressGlobal} positionDef={positionDef} lat={lat} lng={lng} />
             </div>
         </div>
     );
