@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect, useContext } from "react";
 import css from "../styles/New_annonce.module.scss";
 import Image from "next/image";
@@ -78,7 +79,7 @@ export default function New_annonce() {
             e.preventDefault();
             setTitle(tempoTitle);
 
-            window.scrollBy(0, 300);
+            
         } else {
             e.preventDefault();
         }
@@ -88,7 +89,7 @@ export default function New_annonce() {
         setTempoTitle("");
     };
 
-    const MapWithNoSSR = dynamic(() => import("../Components/Map"), {
+    const MapWithNoSSR = dynamic(() => import("../Components/MapComponent"), {
         loading: () => <p>A map is loading</p>,
         ssr: false,
     });
@@ -175,15 +176,14 @@ export default function New_annonce() {
 
             <Category category={setCategory} title={title} />
 
-            <MapWithNoSSR />
-            
+            <MapWithNoSSR category={category} />
+
             <Input_image
                 stateImage={stateImage}
                 setStateImage={setStateImage}
                 uploadImage={uploadImage}
                 setUploadImage={setUploadImage}
             />
-
         </div>
     );
 }

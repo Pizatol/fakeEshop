@@ -1,16 +1,23 @@
 import React, { useEffect, useState, useRef } from "react";
 import css from "../styles/Map.module.scss";
 
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
-import L from "leaflet"
+import {
+    MapContainer,
+    TileLayer,
+    Marker,
+    Popup,
+    useMap,
+    useMapEvents,
+    Map,
+} from "react-leaflet";
 
-import "leaflet/dist/leaflet.css";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
-import "leaflet-defaulticon-compatibility";
+// import "leaflet/dist/leaflet.css";
+// import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+// import "leaflet-defaulticon-compatibility";
 
 import Geocode from "react-geocode";
 
-export default function Map() {
+export default function MapComponent( {category} ) {
     const [lati, setLat] = useState(0);
     const [lngi, setLng] = useState(0);
     const [status, setStatus] = useState(null);
@@ -22,19 +29,28 @@ export default function Map() {
 
     const [addressGlobal, setAddressGlobal] = useState("");
 
+
     const positionDef = [48.84889654453206, 2.3266729316971877];
     const position = [lati, lngi];
+
+    const mapRef = useRef();
 
     const handleAdress = (e) => {
         e.preventDefault();
         setAddressGlobal(adress + " " + postal + " " + city + " " + country);
-        // console.log(addressGlobal);
+        
         getLocation();
     };
 
-
-
-   
+    const FlyMap = () => {
+        const map = useMap();
+        if (lati !== 0) {
+            map.flyTo(position, 15, {
+                duration: 3,
+            });
+        }
+        return null;
+    };
 
     // GEOLOC
     const getLocation = () => {
@@ -42,31 +58,30 @@ export default function Map() {
         const regard = "10 rue du regard, 75006 Paris, France";
 
         // FROM ADRESS
-        Geocode.fromAddress(addressGlobal).then(
+        Geocode.fromAddress(position).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
 
                 setLat(lat);
                 setLng(lng);
+                console.log("position", position);
 
-                Geocode.fromLatLng(lat, lng).then(
-                    (response) => {
-                        const address = response.results[0].formatted_address;
-                        console.log("ADRESSE", address);
-                    },
-                    (error) => {
-                        console.log(error.message);
-                    }
-                );
 
-               
-
+                //    FROM LAT LONG
+Geocode.fromLatLng(lat , lng).then(
+    (response) => {
+        const address = response.results[0].formatted_address;
+        console.log( "ADRESS !" ,address);
+    },
+    (error) => {
+        console.log(error.message);
+    }
+    );
 
                 setAdress("");
                 setPostal(0);
                 setCity("");
                 setCountry("France");
-                console.log(lat, lng);
             },
             (error) => {
                 console.error(error);
@@ -74,10 +89,17 @@ export default function Map() {
         );
     };
 
- 
-
     return (
-        <div className={css.global_container}>
+        <div 
+         className={
+                    category === ""
+                        ? `${css.global_container} ${css.hidden_map}`
+                        : `${css.global_container}`
+                }
+        >
+
+
+
             <div className={css.inputs_container}>
                 {/* <button onClick={getLocation}>Get Location</button> */}
 
@@ -129,13 +151,12 @@ export default function Map() {
             </div>
             <div
                 className={
-                    lati === null
+                    lati === 0
                         ? `${css.map_container} ${css.hidden_map}`
                         : `${css.map_container}`
                 }
             >
                 <MapContainer
-                  
                     className={css.map}
                     center={position}
                     // center={lati !== null ?   position : positionDef}
@@ -152,7 +173,8 @@ export default function Map() {
                         draggable={false}
                         animate={true}
                     ></Marker>
-                   
+
+                    {/* <FlyMap /> */}
                 </MapContainer>
             </div>
         </div>
