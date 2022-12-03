@@ -5,6 +5,11 @@ import css from "../styles/Input_image.module.scss";
 import { db } from "../Firebase/FirebaseConfig";
 import { storage } from "../Firebase/FirebaseConfig";
 import { v4 } from "uuid";
+import { LoginContext } from "../context/LoginContext";
+
+import Button_validate from "./buttons/Button_validate";
+import Button_input from "./buttons/Button_input";
+import Button_download from "./buttons/Button_download";
 
 import {
     uploadBytes,
@@ -35,7 +40,10 @@ export default function Input_image({
     setStateImage,
     uploadImage,
     setUploadImage,
+    category,
 }) {
+    const { validationImg, setValidationImg } = useContext(LoginContext);
+
     // IMAGE UPLOAD
     const onImageUpload = (e) => {
         // setStateImage(e.target.files[0])
@@ -54,8 +62,6 @@ export default function Input_image({
             const name = v4();
             // setTempoListImg((prev) => [...prev, name]);
             const imageRef = ref(storage, `/images/${name}`);
-
-            console.log(stateImage);
 
             uploadBytes(imageRef, stateImage).then((snapshot) => {
                 getDownloadURL(snapshot.ref).then((url) => {
@@ -89,41 +95,28 @@ export default function Input_image({
     };
 
     return (
-        <div>
+        <div
+            className={
+                category !== "" ? `${css.global_container}` : `${css.hidden}`
+            }
+        >
             <div className={css.right_part}>
+                <h2>Images : </h2>
+                <p>Sélectionner des images (3 minimum) : </p>
                 <div className={css.buttons_container}>
                     <div className={css.left_part_buttons}>
-                        <label for="pic" className={css.input_picture}>
-                            {stateImage ? <span>sélectionner image</span> : ""}
-
-                            <input
-                                className={css.input_file_button}
-                                id="pic"
-                                type="file"
-                                onChange={(e) =>
-                                    setStateImage(e.target.files[0])
-                                }
-                                // onChange={(e) => onImageUpload(e)}
-                            />
-                        </label>
+                        <Button_input
+                            props={"Sélectionner"}
+                            file={stateImage}
+                            input={(e) => setStateImage(e.target.files[0])}
+                        />
                     </div>
 
-                    <button
-                        className={
-                            stateImage.length === 0
-                                ? `${css.button_validation}`
-                                : `${css.button_validation_done}`
-                        }
-                        type="button"
-                        onClick={onImageUpload}
-                    >
-                        <Image
-                            src={download_icon}
-                            alt="cancel icon"
-                            height={40}
-                            width={40}
-                        />
-                    </button>
+                    <Button_download
+                        props={"Télécharger"}
+                        onImageUpload={onImageUpload}
+                        filed={stateImage}
+                    />
                 </div>
 
                 <div className={css.selected_image_span}>
@@ -181,6 +174,16 @@ export default function Input_image({
                           ))
                         : null}
                 </div>
+                {/* <div>
+                    {uploadImage.length >= 1 ? (
+                        <Button_validate
+                            props={"Valider"}
+                            validation_image={uploadImage}
+                        />
+                    ) : (
+                        ""
+                    )}
+                </div> */}
             </div>
         </div>
     );

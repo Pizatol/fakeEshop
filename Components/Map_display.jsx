@@ -1,8 +1,8 @@
 
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import css from "../styles/Map_display.module.scss";
-
+import { LoginContext } from "../context/LoginContext";
 
 import {
 	MapContainer,
@@ -21,15 +21,21 @@ import "leaflet-defaulticon-compatibility";
 
 export default function Map_display( {positionDef, lat, lng }) {
 
+	
+
 
 	const FlyMap =  () => {
+
+
 		const map = useMap();
 
 		if (lat !== 0) {
+			
 			 const position =  [lat, lng];
 			 const fly = map.flyTo(position, 13, {
 				  duration: 3,
 			 });
+		
 			 return (
 				<Marker
 			  position={position}
@@ -39,6 +45,8 @@ export default function Map_display( {positionDef, lat, lng }) {
 		
 		 </Marker>
 			 );
+
+			
 		} else {
 			 return;
 		}

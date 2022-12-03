@@ -1,13 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import css from "../styles/Map.module.scss";
 import dynamic from "next/dynamic";
+import { LoginContext } from "../context/LoginContext";
 
 import Button_validate from "./buttons/Button_validate";
 import Button_cancel from "./buttons/Button_cancel";
 
 import Geocode from "react-geocode";
 
-export default function MapComponent({ category }) {
+export default function MapComponent({ uploadImage, }) {
+
+    const { mapOk, setMapOk } = useContext(LoginContext);
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [lat, setLat] = useState(0);
@@ -15,12 +19,10 @@ export default function MapComponent({ category }) {
     const [adress, setAdress] = useState("");
     const [postal, setPostal] = useState("");
     const [city, setCity] = useState("");
-    const [country, setCountry] = useState("");
+    // const [country, setCountry] = useState("");
     const [addressGlobal, setAddressGlobal] = useState("");
 
     const positionDef = [46.6048, 1.44419];
-
-    const mapRef = useRef();
 
     const MapDynamicDiplay = dynamic(
         () => import("../Components/Map_display"),
@@ -32,30 +34,30 @@ export default function MapComponent({ category }) {
 
     const handleAdress = async (e) => {
         e.preventDefault();
-
+        setAddressGlobal(adress + ", " + postal + " " + city + ", France");
         const apiKey = Geocode.setApiKey(
             process.env.NEXT_PUBLIC_API_KEY_GOOGLE_MAP
         );
-        const regard = "10 rue du regard, 75006 Paris, France";
 
         // FROM ADRESS
 
-        setTimeout(() => {
-            const fromAdd = Geocode.fromAddress(addressGlobal).then(
-                (response) => {
-                    const res = response.results[0].geometry.location;
+        const fromAdd = Geocode.fromAddress(addressGlobal).then(
+            (response) => {
+                const res = response.results[0].geometry.location;
 
-                    setLat(res.lat);
-                    setLng(res.lng);
+                setLat(res.lat);
+                setLng(res.lng);
 
-                    console.log(lat, lng);
-                },
-                (error) => {
-                    console.error(error);
-                }
+               
+            },
+            (error) => {
+                console.error(error);
+            }
             );
-        }, 250);
+           
     };
+
+
 
     const reset_fields = () => {
         setLat(0);
@@ -63,21 +65,22 @@ export default function MapComponent({ category }) {
         setAdress("");
         setPostal("");
         setCity("");
-        setCountry("");
+        // setCountry("");
         setAddressGlobal("");
     };
 
-    useEffect(() => {
-        setAddressGlobal(adress + ", " + postal + " " + city + ", " + country);
-    }, [adress, postal, city, country, addressGlobal]);
+    // useEffect(() => {
+    //     setAddressGlobal(adress + ", " + postal + " " + city + ", France");
+    // }, [adress, postal, city, addressGlobal]);
 
     return (
         <div
-            className={
-                category === ""
-                    ? `${css.global_container} ${css.hidden_map}`
-                    : `${css.global_container}`
-            }
+            // className={
+            //     uploadImage.length <= 3
+            //         ? `${css.global_container} ${css.hidden_map}`
+            //         : `${css.global_container}`
+            // }
+            className={css.global_container}
         >
             <div className={css.inputs_container}>
                 {/* <button onClick={getLocation}>Get Location</button> */}
@@ -114,6 +117,7 @@ export default function MapComponent({ category }) {
                                 type="text"
                                 placeholder="Addresse"
                                 value={adress}
+                                // name="adress"
                             />
                         </label>
                         <label required>
@@ -124,6 +128,7 @@ export default function MapComponent({ category }) {
                                 type="number"
                                 placeholder="Code postal"
                                 value={postal}
+                                // name="postal"
                             />
                         </label>
                         <label required>
@@ -134,9 +139,10 @@ export default function MapComponent({ category }) {
                                 type="text"
                                 placeholder="Ville"
                                 value={city}
+                                // name="city"
                             />
                         </label>
-                        <label required>
+                        {/* <label required>
                             <input
                                 required
                                 className={css.input_field}
@@ -145,11 +151,21 @@ export default function MapComponent({ category }) {
                                 placeholder="Pays"
                                 value={country}
                             />
-                        </label>
+                        </label> */}
                     </div>
                     {/* <button type="submit">valider</button> */}
-                    {lat === 0 ? (
-                        <Button_validate props={"Valider"} />
+
+                    {lat === 0 || lat !== 0 ? (
+                        <div>
+                            <Button_validate
+                                props={"Valider"}
+                                adress={adress}
+                            />
+                            <Button_cancel
+                                toggleCancel={reset_fields}
+                                props={"Annuler"}
+                            />
+                        </div>
                     ) : (
                         <Button_cancel
                             toggleCancel={reset_fields}

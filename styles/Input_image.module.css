@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 .input_picture {
   display: flex;
   align-items: center;
@@ -30,6 +34,11 @@
   margin-right: 10px;
 }
 
+.buttons_container {
+  display: flex;
+  flex-direction: row;
+}
+
 .button_reset {
   display: flex;
   justify-content: center;
@@ -55,6 +64,13 @@
   box-shadow: 0 0 0 0 rgba(90, 153, 212, 0.5);
   -webkit-animation: pulse 1.5s infinite;
           animation: pulse 1.5s infinite;
+}
+
+.image_container_preview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
 }
 
 .image_preview_container {

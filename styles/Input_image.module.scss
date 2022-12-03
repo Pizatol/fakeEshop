@@ -1,10 +1,13 @@
 
-
+.hidden {
+	display: none;
+}
 
 .input_picture {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+
 
 	cursor: pointer;
 
@@ -30,11 +33,19 @@
 .name_file_container {
 	display: flex;
 	align-items: center;
+	
 
 	p {
 		 margin-right: 10px;
 	}
 }
+.buttons_container {
+	display: flex;
+	flex-direction: row;
+
+}
+// .left_part_buttons {
+// }
 
 .button_reset {
 	display: flex;
@@ -62,11 +73,18 @@
 	animation: pulse 1.5s infinite;
 }
 
+.image_container_preview {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	height: auto;
+}
 
 .image_preview_container {
 	width: 350px;
 
 	display: flex;
+	
 	margin: 10px;
 }
 .image {

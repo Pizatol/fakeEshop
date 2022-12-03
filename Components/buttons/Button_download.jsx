@@ -1,14 +1,16 @@
 import React from "react";
-import css from "../../styles/Button_cancel.module.scss";
+import css from "../../styles/Button_validate.module.scss";
 
-export default function Button_cancel({ props, toggleCancel, foo }) {
+export default function Button_download({ props,  onImageUpload, filed }) {
+
+
     return (
         <>
             <button
-					onClick={toggleCancel}
+            onClick={onImageUpload}
                 type="submit"
                 className={
-						toggleCancel !== ""
+                    filed.length !== 0 
                         ? `${css.global_container}`
                         : ` ${css.disabled}`
                 }

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import css from "../styles/New_annonce.module.scss";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { LoginContext } from "../context/LoginContext";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,18 +39,26 @@ import {
     deleteField,
 } from "firebase/firestore";
 import Input_image from "../Components/Input_image";
+import Description from "../Components/Description";
 
 export default function New_annonce() {
     const dataCollectionRef = collection(db, "products");
+    const {
+        title,
+        setTitle,
+        category,
+        setCategory,
+        description,
+        setDescription,
+    } = useContext(LoginContext);
 
     const [stateImage, setStateImage] = useState([]);
     const [uploadImage, setUploadImage] = useState([]);
     const [tempoListImg, setTempoListImg] = useState([]);
 
     const [tempoTitle, setTempoTitle] = useState("");
-    const [title, setTitle] = useState("");
 
-    const [category, setCategory] = useState("");
+    const [addressGlobal, setAddressGlobal] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -78,8 +87,6 @@ export default function New_annonce() {
         if (tempoTitle) {
             e.preventDefault();
             setTitle(tempoTitle);
-
-            
         } else {
             e.preventDefault();
         }
@@ -94,7 +101,8 @@ export default function New_annonce() {
         ssr: false,
     });
 
-    console.log(title);
+    // CONSOLE LOG ***************
+
     return (
         <div className={css.global_container}>
             {/* TITRE */}
@@ -104,6 +112,7 @@ export default function New_annonce() {
                 </div>
 
                 <div className={css.title_announcement_container}>
+                    <h2>Titre de l'annonce</h2>
                     <form onSubmit={(e) => handleTitle(e)}>
                         <div className={css.subtitle}>
                             <p>Quel est le titre de l'annonce ?</p>
@@ -143,7 +152,8 @@ export default function New_annonce() {
                                 {!title ? (
                                     <Button_validate
                                         props={"Valider"}
-                                        title={tempoTitle}
+                                        // title={tempoTitle}
+                                        foo={handleTitle}
                                     />
                                 ) : (
                                     ""
@@ -176,14 +186,31 @@ export default function New_annonce() {
 
             <Category category={setCategory} title={title} />
 
-            <MapWithNoSSR category={category} />
-
-            {/* <Input_image
+            <Input_image
                 stateImage={stateImage}
                 setStateImage={setStateImage}
                 uploadImage={uploadImage}
                 setUploadImage={setUploadImage}
-            /> */}
+                category={category}
+            />
+            {uploadImage.length >= 3 ? (
+                <Description
+                    description={description}
+                    setDescription={setDescription}
+                />
+            ) : (
+                ""
+            )}
+
+            {description ? (
+                <MapWithNoSSR
+                    uploadImage={uploadImage}
+                    addressGlobal={addressGlobal}
+                    setAddressGlobal={setAddressGlobal}
+                />
+            ) : (
+                ""
+            )}
         </div>
     );
 }

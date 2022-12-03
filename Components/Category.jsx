@@ -40,12 +40,9 @@ export default function Category({ category, title }) {
         setAnimaux(true);
     };
 
-
-
-
     const toggleCancel = () => {
-        setValue("")
-    }
+        setValue("");
+    };
 
     return (
         <div
@@ -55,6 +52,7 @@ export default function Category({ category, title }) {
                     : css.category_container
             }
         >
+            <h2>Catégorie :</h2>
             <div
                 className={!value ? `${css.choix_container}` : `${css.hidden}`}
             >
@@ -271,37 +269,32 @@ export default function Category({ category, title }) {
                     )}
                 </div>
             </div>
-                {value ? (
-                    <div className={css.result_container}>
-                <div className={css.result_field}>
-                    <p> {value} </p>
+            {value ? (
+                <div className={css.result_container}>
+                    <div className={css.result_field}>
+                        <p> {value} </p>
+                    </div>
+
+                    <div>
+                        {value !== "" ? (
+                            <Button_cancel
+                                props={"Annuler"}
+                                toggleCancel={toggleCancel}
+                            />
+                        ) : (
+                            ""
+                        )}
+                    </div>
                 </div>
-
-                <div>
-                    {value !== "" ? (
-
-                        <Button_cancel
-                        
-                        props={"Annuler"}
-                                        toggleCancel={toggleCancel}
-                         />
-
-                      
-                        
-                    ) : (
-                        ""
-                    )}
-                </div>
-            </div>
-                ) : ''}
-
-            
+            ) : (
+                ""
+            )}
         </div>
     );
 }
 
-
-  {/* <button
+{
+    /* <button
                             className={css.reset_button}
                             type="button"
                             onClick={() => setValue("")}
@@ -313,4 +306,5 @@ export default function Category({ category, title }) {
                                 height={40}
                                 width={40}
                             />
-                        </button> */}
+                        </button> */
+}
