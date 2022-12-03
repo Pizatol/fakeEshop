@@ -162,13 +162,13 @@ export default function MapComponent({ uploadImage, }) {
                                 adress={adress}
                             />
                             <Button_cancel
-                                toggleCancel={reset_fields}
+                                foo={reset_fields}
                                 props={"Annuler"}
                             />
                         </div>
                     ) : (
                         <Button_cancel
-                            toggleCancel={reset_fields}
+                            foo={reset_fields}
                             props={"Annuler"}
                         />
                     )}

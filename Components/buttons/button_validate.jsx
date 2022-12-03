@@ -12,19 +12,19 @@ export default function Button_validate({
     foo
 }) {
 
-    const {  user,
-        setUser,
-        formOn,
-        setFormOn,
-        userName,
-        setUserName,
-        mapOk,
-        setMapOk,         
-        setTitle,
-        category,
-        setCategory,
-        validationImg,
-        setValidationImg } = useContext(LoginContext);
+    // const {  user,
+    //     setUser,
+    //     formOn,
+    //     setFormOn,
+    //     userName,
+    //     setUserName,
+    //     mapOk,
+    //     setMapOk,         
+    //     setTitle,
+    //     category,
+    //     setCategory,
+    //     validationImg,
+    //     setValidationImg } = useContext(LoginContext);
 
     return (
         <>
@@ -39,7 +39,7 @@ export default function Button_validate({
             >
                 {props}
             </button>
-           
+{/*            
             {
                 validation_image ? (
                     <button
@@ -54,7 +54,7 @@ export default function Button_validate({
                 {props}
             </button>
                 ) : ""
-            }
+            } */}
         </>
     );
 }

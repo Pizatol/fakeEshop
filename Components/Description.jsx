@@ -16,7 +16,7 @@ export default function Description() {
         setDescription_validation(true);
     };
 
-    const handle_cancel_description = () => {
+    const handle_cancel_description = (e) => {
         e.preventDefault();
         setDescription("");
         setDescription_validation(false);
@@ -28,8 +28,9 @@ export default function Description() {
                 <h2 className={css.title_description}>Description : </h2>
             </div>
             <form className={css.form_container}>
-                {description_validation ? (
+                {description_validation? (
                     <textarea
+						  className={`${css.textArea} ${css.denied}`}
                         disabled
                         value={textDescription}
                         type="text"
@@ -37,9 +38,11 @@ export default function Description() {
                     />
                 ) : (
                     <textarea
+						   className={css.textArea}
                         value={textDescription}
-                        type="text"
+                        type="text" 
                         onChange={(e) => setTextDescription(e.target.value)}
+                        
                     />
                 )}
                 {!description_validation ? (

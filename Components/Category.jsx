@@ -279,7 +279,7 @@ export default function Category({ category, title }) {
                         {value !== "" ? (
                             <Button_cancel
                                 props={"Annuler"}
-                                toggleCancel={toggleCancel}
+                                foo={toggleCancel}
                             />
                         ) : (
                             ""

@@ -5,7 +5,7 @@ export default function Button_cancel({ props, toggleCancel, foo }) {
     return (
         <>
             <button
-					onClick={toggleCancel}
+					onClick={foo}
                 type="submit"
                 className={
 						toggleCancel !== ""
