@@ -2,6 +2,11 @@
   display: none;
 }
 
+.main_title {
+  font-family: var(--DM);
+  font-size: var(--fontSize1);
+}
+
 .input_picture {
   display: flex;
   align-items: center;

@@ -33,6 +33,10 @@
     outline: none;
     border: 2px solid var(--blueColor1);
 }
+.main_title {
+    font-family: var(--DM);
+    font-size: var(--fontSize1);
+}
 .flex {
     display: flex;
     flex-direction: column;

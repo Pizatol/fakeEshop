@@ -9,6 +9,10 @@
 .hidden {
     display: none;
 }
+.main_title {
+    font-family: var(--DM);
+    font-size: var(--fontSize1);
+}
 
 .choix_container {
     display: flex;

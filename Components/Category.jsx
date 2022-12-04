@@ -52,7 +52,7 @@ export default function Category({ category, title }) {
                     : css.category_container
             }
         >
-            <h2>Catégorie :</h2>
+            <h2 className={css.main_title} >Catégorie :</h2>
             <div
                 className={!value ? `${css.choix_container}` : `${css.hidden}`}
             >

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import css from "../styles/Description.module.scss";
 import Button_validate from "./buttons/Button_validate";
 import Button_cancel from "./buttons/Button_cancel";
@@ -10,22 +10,30 @@ export default function Description() {
     const [textDescription, setTextDescription] = useState("");
     const [description_validation, setDescription_validation] = useState(false);
 
+
+
     const handle_description_validation = (e) => {
         e.preventDefault();
-        setDescription(e);
-        setDescription_validation(true);
+        // setTextDescription(e);
+        setDescription(e)
+        setDescription_validation(!description_validation);
     };
-
+    
     const handle_cancel_description = (e) => {
         e.preventDefault();
-        setDescription("");
-        setDescription_validation(false);
+        setTextDescription("");
+        setDescription_validation(!description_validation);
     };
-    console.log("DESCRIPTION", textDescription);
+    
+    console.log("DESCRIPTION", textDescription.length);
+   
+
+   
+
     return (
         <div className={css.global_container}>
             <div>
-                <h2 className={css.title_description}>Description : </h2>
+                <h2 className={css.main_title}>Description : </h2>
             </div>
             <form className={css.form_container}>
                 {description_validation? (

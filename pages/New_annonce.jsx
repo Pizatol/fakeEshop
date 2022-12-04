@@ -48,8 +48,13 @@ export default function New_annonce() {
         setTitle,
         category,
         setCategory,
+        validationImg,
+        setValidationImg,
         description,
         setDescription,
+        credentials,
+        setCredentials,
+        images,
     } = useContext(LoginContext);
 
     const [stateImage, setStateImage] = useState([]);
@@ -63,7 +68,14 @@ export default function New_annonce() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newProduct = {};
+        const newProduct = {
+            title: title,
+            category: category,
+            description: description,
+            credentials: credentials,
+            images: images,
+        };
+        console.log(newProduct);
 
         try {
             toast.success(" New product added!", {
@@ -112,7 +124,7 @@ export default function New_annonce() {
                 </div>
 
                 <div className={css.title_announcement_container}>
-                    <h2>Titre de l'annonce</h2>
+                    <h2 className={css.main_title}>Titre de l'annonce</h2>
                     <form onSubmit={(e) => handleTitle(e)}>
                         <div className={css.subtitle}>
                             <p>Quel est le titre de l'annonce ?</p>
@@ -193,7 +205,7 @@ export default function New_annonce() {
                 setUploadImage={setUploadImage}
                 category={category}
             />
-            {uploadImage.length >= 3 ? (
+            {uploadImage.length > 1 ? (
                 <Description
                     description={description}
                     setDescription={setDescription}
@@ -201,6 +213,11 @@ export default function New_annonce() {
             ) : (
                 ""
             )}
+            {/* <MapWithNoSSR
+                uploadImage={uploadImage}
+                addressGlobal={addressGlobal}
+                setAddressGlobal={setAddressGlobal}
+            /> */}
 
             {description ? (
                 <MapWithNoSSR
@@ -208,6 +225,11 @@ export default function New_annonce() {
                     addressGlobal={addressGlobal}
                     setAddressGlobal={setAddressGlobal}
                 />
+            ) : (
+                ""
+            )}
+            {Object.keys(credentials).length !== 0 ? (
+                <Button_validate props="Valider" foo={handleSubmit} />
             ) : (
                 ""
             )}

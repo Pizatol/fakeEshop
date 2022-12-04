@@ -8,9 +8,8 @@ import Button_cancel from "./buttons/Button_cancel";
 
 import Geocode from "react-geocode";
 
-export default function MapComponent({ uploadImage, }) {
-
-    const { mapOk, setMapOk } = useContext(LoginContext);
+export default function MapComponent({ uploadImage }) {
+    const { credentials, setCredentials } = useContext(LoginContext);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -21,6 +20,8 @@ export default function MapComponent({ uploadImage, }) {
     const [city, setCity] = useState("");
     // const [country, setCountry] = useState("");
     const [addressGlobal, setAddressGlobal] = useState("");
+
+    const [newCredentials, setNewCredentials] = useState({});
 
     const positionDef = [46.6048, 1.44419];
 
@@ -47,17 +48,25 @@ export default function MapComponent({ uploadImage, }) {
 
                 setLat(res.lat);
                 setLng(res.lng);
-
-               
             },
+
             (error) => {
                 console.error(error);
             }
-            );
-           
+        );
+        setNewCredentials({
+            adress: addressGlobal,
+            postal: postal,
+            city: city,
+            firstName: firstName,
+            lastName: lastName,
+        });
     };
 
+    useEffect(() => {
 
+        setCredentials(newCredentials)
+    }, [newCredentials,setCredentials ])
 
     const reset_fields = () => {
         setLat(0);
@@ -155,22 +164,19 @@ export default function MapComponent({ uploadImage, }) {
                     </div>
                     {/* <button type="submit">valider</button> */}
 
-                    {lat === 0 || lat !== 0 ? (
+                    {lat === 0 ? (
                         <div>
                             <Button_validate
                                 props={"Valider"}
                                 adress={adress}
                             />
-                            <Button_cancel
+                            {/* <Button_cancel
                                 foo={reset_fields}
                                 props={"Annuler"}
-                            />
+                            /> */}
                         </div>
                     ) : (
-                        <Button_cancel
-                            foo={reset_fields}
-                            props={"Annuler"}
-                        />
+                        <Button_cancel foo={reset_fields} props={"Annuler"} />
                     )}
                 </form>
             </div>

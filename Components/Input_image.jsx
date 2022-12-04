@@ -42,12 +42,10 @@ export default function Input_image({
     setUploadImage,
     category,
 }) {
-    const { validationImg, setValidationImg } = useContext(LoginContext);
+    const { images, setImages } = useContext(LoginContext);
 
     // IMAGE UPLOAD
     const onImageUpload = (e) => {
-        // setStateImage(e.target.files[0])
-
         try {
             if (!stateImage) {
                 toast.error(" Error, try again", {
@@ -60,23 +58,37 @@ export default function Input_image({
                 return;
             }
             const name = v4();
+            // const name = stateImage.name;
+           
             // setTempoListImg((prev) => [...prev, name]);
             const imageRef = ref(storage, `/images/${name}`);
 
             uploadBytes(imageRef, stateImage).then((snapshot) => {
                 getDownloadURL(snapshot.ref).then((url) => {
                     {
-                        stateImage
-                            ? setUploadImage((prev) => [...prev, { url, name }])
-                            : setUploadImage({ url, name });
+                        // stateImage.length !== 0
+                        // ?
+                        setUploadImage((prev) => [...prev, { url, name }]);
+                       
+                        // :
+                        // setUploadImage({ url, name });
+                        
+                       
+                     
+                        setStateImage([]);
                     }
                 });
             });
-            setStateImage([]);
         } catch (error) {
             alert(error.message);
         }
     };
+    
+    setImages(uploadImage)
+   
+   
+
+
 
     // DELETE
     const deleteImage = (e) => {
@@ -101,7 +113,7 @@ export default function Input_image({
             }
         >
             <div className={css.right_part}>
-                <h2>Images : </h2>
+                <h2 className={css.main_title}>Images : </h2>
                 <p>Sélectionner des images (3 minimum) : </p>
                 <div className={css.buttons_container}>
                     <div className={css.left_part_buttons}>

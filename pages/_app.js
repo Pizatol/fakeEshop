@@ -26,7 +26,9 @@ function MyApp({ Component, pageProps }) {
 
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
-    const [description, setDescription] = useState('')
+    const [description, setDescription] = useState("");
+    const [credentials, setCredentials] = useState({});
+    const [images, setImages] = useState([]);
 
     return (
         <LoginContext.Provider
@@ -39,14 +41,18 @@ function MyApp({ Component, pageProps }) {
                 setUserName,
                 mapOk,
                 setMapOk,
-                title, 
+                title,
                 setTitle,
                 category,
                 setCategory,
                 validationImg,
                 setValidationImg,
                 description,
-                setDescription
+                setDescription,
+                credentials,
+                setCredentials,
+                images,
+                setImages,
             }}
         >
             <Navbar />
