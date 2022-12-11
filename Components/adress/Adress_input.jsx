@@ -14,7 +14,7 @@ export default function Adress_input() {
         adress: "",
         postal: "",
         city: "",
-        // globalAdress: credentials.adress + ", " + credentials.postal + " " + credentials.city + ", France"
+        
     });
 
     const handleCredentials = (e) => {

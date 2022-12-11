@@ -4,7 +4,6 @@
   color: var(--darkColor2);
   font-family: var(--DM);
   font-size: var(--fontSize0);
-  border: 1px solid red;
 }
 
 .form_container {

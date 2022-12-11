@@ -114,12 +114,7 @@ export default function New_annonce() {
         setTempoTitle("");
     };
 
-    // const MapWithNoSSR = dynamic(() => import("../Components/MapComponent"), {
-    //     loading: () => <p>A map is loading</p>,
-    //     ssr: false,
-    // });
 
-    // CONSOLE LOG ***************
 
     return (
         <div className={css.global_container}>
@@ -234,23 +229,7 @@ export default function New_annonce() {
             }
            
 
-            {/* <div>
-                {finalCredentials.adress !== undefined ? (
-                    <MapDynamicDiplay finalCredentials={finalCredentials} />
-                ) : (
-                    ""
-                )}
-            </div> */}
-
-            {/* {description ? (
-                <MapWithNoSSR
-                    uploadImage={uploadImage}
-                    addressGlobal={addressGlobal}
-                    setAddressGlobal={setAddressGlobal}
-                />
-            ) : (
-                ""
-            )} */}
+          
 
             {/* {Object.keys(credentials).length !== 0 ? (
                 <Button_validate props="Valider" foo={handleSubmit} />
