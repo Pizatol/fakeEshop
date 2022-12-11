@@ -40,6 +40,7 @@ import {
 } from "firebase/firestore";
 import Input_image from "../Components/Input_image";
 import Description from "../Components/Description";
+import Adress_input from "../Components/adress/Adress_input";
 
 export default function New_annonce() {
     const dataCollectionRef = collection(db, "products");
@@ -52,18 +53,24 @@ export default function New_annonce() {
         setValidationImg,
         description,
         setDescription,
-        credentials,
-        setCredentials,
+        credentials, setCredentials,
         images,
     } = useContext(LoginContext);
 
     const [stateImage, setStateImage] = useState([]);
     const [uploadImage, setUploadImage] = useState([]);
     const [tempoListImg, setTempoListImg] = useState([]);
-
     const [tempoTitle, setTempoTitle] = useState("");
+   
+   
 
-    const [addressGlobal, setAddressGlobal] = useState("");
+    const MapDynamicDiplay = dynamic(
+        () => import("../Components/Map_display"),
+        {
+            loading: () => <p>A map is loading</p>,
+            ssr: false,
+        }
+    );
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -72,10 +79,9 @@ export default function New_annonce() {
             title: title,
             category: category,
             description: description,
-            credentials: credentials,
+            credentials: newCredentials,
             images: images,
         };
-        console.log(newProduct);
 
         try {
             toast.success(" New product added!", {
@@ -108,10 +114,10 @@ export default function New_annonce() {
         setTempoTitle("");
     };
 
-    const MapWithNoSSR = dynamic(() => import("../Components/MapComponent"), {
-        loading: () => <p>A map is loading</p>,
-        ssr: false,
-    });
+    // const MapWithNoSSR = dynamic(() => import("../Components/MapComponent"), {
+    //     loading: () => <p>A map is loading</p>,
+    //     ssr: false,
+    // });
 
     // CONSOLE LOG ***************
 
@@ -121,6 +127,7 @@ export default function New_annonce() {
             <div className={title ? "" : ""}>
                 <div className={css.title}>
                     <h1>Déposer une annonce</h1>
+                  
                 </div>
 
                 <div className={css.title_announcement_container}>
@@ -198,7 +205,11 @@ export default function New_annonce() {
 
             <Category category={setCategory} title={title} />
 
-            <Input_image
+
+            <Adress_input/>
+
+
+            {/* <Input_image
                 stateImage={stateImage}
                 setStateImage={setStateImage}
                 uploadImage={uploadImage}
@@ -212,14 +223,26 @@ export default function New_annonce() {
                 />
             ) : (
                 ""
-            )}
-            {/* <MapWithNoSSR
-                uploadImage={uploadImage}
-                addressGlobal={addressGlobal}
-                setAddressGlobal={setAddressGlobal}
-            /> */}
+            )} */}
+            {
+                credentials.adress !== "" ? (
+                    
+                    <MapDynamicDiplay
+               
+            />
+                ) : ''
+            }
+           
 
-            {description ? (
+            {/* <div>
+                {finalCredentials.adress !== undefined ? (
+                    <MapDynamicDiplay finalCredentials={finalCredentials} />
+                ) : (
+                    ""
+                )}
+            </div> */}
+
+            {/* {description ? (
                 <MapWithNoSSR
                     uploadImage={uploadImage}
                     addressGlobal={addressGlobal}
@@ -227,12 +250,13 @@ export default function New_annonce() {
                 />
             ) : (
                 ""
-            )}
-            {Object.keys(credentials).length !== 0 ? (
+            )} */}
+
+            {/* {Object.keys(credentials).length !== 0 ? (
                 <Button_validate props="Valider" foo={handleSubmit} />
             ) : (
                 ""
-            )}
+            )} */}
         </div>
     );
 }

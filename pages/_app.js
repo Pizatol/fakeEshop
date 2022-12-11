@@ -49,8 +49,7 @@ function MyApp({ Component, pageProps }) {
                 setValidationImg,
                 description,
                 setDescription,
-                credentials,
-                setCredentials,
+                credentials, setCredentials,
                 images,
                 setImages,
             }}

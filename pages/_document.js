@@ -16,6 +16,11 @@ export default function Document() {
                 />
 
                 <link
+                    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css"
+                    rel="stylesheet"
+                ></link>
+
+                <link
                     rel="stylesheet"
                     href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
                     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
