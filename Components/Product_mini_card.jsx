@@ -1,58 +1,50 @@
+import React, { useState } from "react";
+import css from "../styles/Product_mini_card.module.scss";
+import Image from "next/image";
+import Link from "next/link";
 
+import StarRating from "./StarRating";
 
-import React , { useState} from 'react'
-import css from "../styles/Product_mini_card.module.scss"
-import Image from 'next/image'
-import Link from 'next/link'
+import hd600 from "../public/assets/Pictures/inventoryImg/hd600.jpg";
 
-import StarRating from './StarRating'
+export default function Product_mini_card({
+    id,
+    title,
+    category,
+    description,
+    credentials,
+    images,
+}) {
+  
+	
 
-import hd600 from '../public/assets/Pictures/inventoryImg/hd600.jpg'
+    return (
+        <div className={css.global_container}>
+            {/* <Link href="slug"> */}
+            <Link href={id}>
+                <div className={css.image_container}>
+                    <Image
+                        src={images[0].url}
+                        height={300}
+                        width={300}
+                        alt="headphone"
+								layout="responsive"
+                    />
+                </div>
 
+                <div className={css.name_product}>
+                    <h1>{title}</h1>
+                </div>
 
-export default function Product_mini_card() {
+                <div className={css.price}>
+                    <p>
+                        {" "}
+                        450 <span>€</span>{" "}
+                    </p>
+                </div>
 
- const [name, setName] = useState("headphone")
-
-
-  return (
-
-	 <div className={css.global_container}>
-	 {/* <Link href="slug"> */}
-	 <Link href= {name} >
-	 
-
-				<div className={css.image_container}>
-					<Image 
-						src={hd600}
-						height={300}
-						width={300}						 
-						alt="headphone"
-					/>
-				</div>
-
-				<div className={css.name_product}>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, neque?
-				</div>
-
-				<div className={css.price}>
-					<p> 450  <span>€</span> </p>
-				</div>
-				
-
-				<div className={css.rating}>
-
-				{/* <StarRating/> */}
-
-
-
-				</div>
-
-	 </Link>
-
-
-
-				
-	 </div>
-  )
+                <div className={css.rating}>{/* <StarRating/> */}</div>
+            </Link>
+        </div>
+    );
 }

@@ -15,17 +15,19 @@ export default function Description() {
     const handle_description_validation = (e) => {
         e.preventDefault();
         // setTextDescription(e);
-        setDescription(e)
+        
+        setDescription(textDescription)
         setDescription_validation(!description_validation);
     };
     
     const handle_cancel_description = (e) => {
         e.preventDefault();
         setTextDescription("");
+        setDescription("")
         setDescription_validation(!description_validation);
     };
     
-    console.log("DESCRIPTION", textDescription.length);
+   
    
 
    

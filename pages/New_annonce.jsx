@@ -41,28 +41,27 @@ import {
 import Input_image from "../Components/Input_image";
 import Description from "../Components/Description";
 import Adress_input from "../Components/adress/Adress_input";
+import Title from "../Components/Title";
 
 export default function New_annonce() {
     const dataCollectionRef = collection(db, "products");
     const {
+        price, setPrice,
         title,
         setTitle,
         category,
         setCategory,
-        validationImg,
-        setValidationImg,
         description,
         setDescription,
-        credentials, setCredentials,
+        credentials,  
         images,
+        user
     } = useContext(LoginContext);
 
     const [stateImage, setStateImage] = useState([]);
     const [uploadImage, setUploadImage] = useState([]);
     const [tempoListImg, setTempoListImg] = useState([]);
     const [tempoTitle, setTempoTitle] = useState("");
-   
-   
 
     const MapDynamicDiplay = dynamic(
         () => import("../Components/Map_display"),
@@ -72,18 +71,25 @@ export default function New_annonce() {
         }
     );
 
+    console.log(user.email);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newProduct = {
+            id: v4(),
             title: title,
             category: category,
             description: description,
-            credentials: newCredentials,
+            credentials: credentials,
             images: images,
+            user : user.email
         };
 
         try {
+            await addDoc(dataCollectionRef, newProduct);
+            console.log(newProduct);
+
             toast.success(" New product added!", {
                 autoClose: 1000,
                 theme: "colored",
@@ -101,20 +107,6 @@ export default function New_annonce() {
         }
     };
 
-    const handleTitle = (e) => {
-        if (tempoTitle) {
-            e.preventDefault();
-            setTitle(tempoTitle);
-        } else {
-            e.preventDefault();
-        }
-    };
-    const toggleCancel = () => {
-        setTitle("");
-        setTempoTitle("");
-    };
-
-
 
     return (
         <div className={css.global_container}>
@@ -122,95 +114,41 @@ export default function New_annonce() {
             <div className={title ? "" : ""}>
                 <div className={css.title}>
                     <h1>Déposer une annonce</h1>
-                  
                 </div>
 
                 <div className={css.title_announcement_container}>
                     <h2 className={css.main_title}>Titre de l'annonce</h2>
-                    <form onSubmit={(e) => handleTitle(e)}>
-                        <div className={css.subtitle}>
-                            <p>Quel est le titre de l'annonce ?</p>
-                        </div>
 
-                        <div className={css.flex}>
-                            <label>
-                                {title ? (
-                                    <input
-                                        type="text"
-                                        className={
-                                            title === ""
-                                                ? `${css.name_input_container}`
-                                                : `${css.name_input_container} ${css.disabled}`
-                                        }
-                                        value={tempoTitle}
-                                        onChange={(e) =>
-                                            setTempoTitle(e.target.value)
-                                        }
-                                        disabled
-                                    />
-                                ) : (
-                                    <input
-                                        type="text"
-                                        className={
-                                            title === ""
-                                                ? `${css.name_input_container}`
-                                                : `${css.name_input_container} ${css.disabled}`
-                                        }
-                                        value={tempoTitle}
-                                        onChange={(e) =>
-                                            setTempoTitle(e.target.value)
-                                        }
-                                    />
-                                )}
 
-                                {!title ? (
-                                    <Button_validate
-                                        props={"Valider"}
-                                        // title={tempoTitle}
-                                        foo={handleTitle}
-                                    />
-                                ) : (
-                                    ""
-                                )}
 
-                                {title ? (
-                                    <Button_cancel
-                                        props={"Annuler"}
-                                        foo={toggleCancel}
-                                    />
-                                ) : (
-                                    ``
-                                )}
-                            </label>
-                            <span
-                                className={
-                                    tempoTitle.length < 1 && title === ""
-                                        ? `${css.span_title}`
-                                        : `${css.span_title_hidden}`
-                                }
-                            >
-                                Veuillez donner un titre à votre annonce{" "}
-                            </span>
-                        </div>
-                    </form>
+            <Title/>
+
+                
                 </div>
             </div>
 
             <div className={css.title_field_container}></div>
-
+{/* CATEGORY */}
             <Category category={setCategory} title={title} />
 
+            {category ? <Adress_input /> : ""}
 
-            <Adress_input/>
+            {credentials.globalAdress ? (
+                <div>
+                    <MapDynamicDiplay />
 
+                    <Input_image
+                        stateImage={stateImage}
+                        setStateImage={setStateImage}
+                        uploadImage={uploadImage}
+                        setUploadImage={setUploadImage}
+                        category={category}
+                    />
+                </div>
+            ) : (
+                ""
+            )}
 
-            {/* <Input_image
-                stateImage={stateImage}
-                setStateImage={setStateImage}
-                uploadImage={uploadImage}
-                setUploadImage={setUploadImage}
-                category={category}
-            />
             {uploadImage.length > 1 ? (
                 <Description
                     description={description}
@@ -218,24 +156,16 @@ export default function New_annonce() {
                 />
             ) : (
                 ""
-            )} */}
+            )}
+
             {
-                credentials.adress !== "" ? (
-                    
-                    <MapDynamicDiplay
-               
-            />
-                ) : ''
-            }
-           
-
-          
-
-            {/* {Object.keys(credentials).length !== 0 ? (
-                <Button_validate props="Valider" foo={handleSubmit} />
+       
+            description !== ""
+             ? (
+                <Button_validate props="Validation !" foo={handleSubmit} />
             ) : (
                 ""
-            )} */}
+            )}
         </div>
     );
 }

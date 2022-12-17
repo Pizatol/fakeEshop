@@ -25,6 +25,7 @@ function MyApp({ Component, pageProps }) {
     const [validationImg, setValidationImg] = useState(false);
 
     const [title, setTitle] = useState("");
+    const [price, setPrice] = useState(null)
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [credentials, setCredentials] = useState({});
@@ -39,17 +40,17 @@ function MyApp({ Component, pageProps }) {
                 setFormOn,
                 userName,
                 setUserName,
-                mapOk,
-                setMapOk,
                 title,
                 setTitle,
+                price, setPrice,
                 category,
                 setCategory,
                 validationImg,
                 setValidationImg,
                 description,
                 setDescription,
-                credentials, setCredentials,
+                credentials,
+                setCredentials,
                 images,
                 setImages,
             }}
@@ -63,3 +64,6 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+
+// titre, category, adress, map , description
