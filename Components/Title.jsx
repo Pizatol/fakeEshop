@@ -36,7 +36,7 @@ export default function Title() {
 
             <div className={css.flex}>
                 <label>
-                    {title ? (
+                    {title !== "" ? (
                         <input
                             type="text"
                             className={
@@ -66,8 +66,8 @@ export default function Title() {
                     {!title ? (
                         <Button_validate
                             props={"Valider"}
-                            // title={tempoTitle}
-                            foo={handleTitle}
+                            data={tempoTitle}
+                            // foo={handleTitle}
                         />
                     ) : (
                         ""

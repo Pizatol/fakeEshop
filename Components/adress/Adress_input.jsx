@@ -17,6 +17,7 @@ export default function Adress_input() {
         
     });
 
+
     const handleCredentials = (e) => {
         e.preventDefault();
 
@@ -50,6 +51,7 @@ export default function Adress_input() {
                         onSubmit={(e) => handleCredentials(e)}
                         className={css.form_container}
                     >
+                   
                         <div className={css.name_container}>
                             <label>
                                 <input
@@ -137,9 +139,16 @@ export default function Adress_input() {
                                     props={"Annuler"}
                                 />
                             ) : (
-                                <Button_validate props={"Valider"} />
+                                <div>
+                               
+
+                                <Button_validate data={inputs} props={"Valider"} />
+                                </div>
                             )}
                         </div>
+                           
+                         
+                          
 
                         <div></div>
                     </form>

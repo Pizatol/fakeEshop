@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
     const [validationImg, setValidationImg] = useState(false);
 
     const [title, setTitle] = useState("");
-    const [price, setPrice] = useState(null)
+    const [price, setPrice] = useState(0);
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [credentials, setCredentials] = useState({});
@@ -42,7 +42,8 @@ function MyApp({ Component, pageProps }) {
                 setUserName,
                 title,
                 setTitle,
-                price, setPrice,
+                price,
+                setPrice,
                 category,
                 setCategory,
                 validationImg,
@@ -64,6 +65,5 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
 
 // titre, category, adress, map , description

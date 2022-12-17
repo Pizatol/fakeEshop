@@ -8,7 +8,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
 
-export default function Map_display() {
+export default function Map_display({adressBuyer} ) {
     const { credentials, setCredentials } = useContext(LoginContext);
 
     const [lat, setLat] = useState(0);
@@ -23,7 +23,10 @@ export default function Map_display() {
         if (credentials.globalAdress) {
             createCoords();
         }
-    }, [credentials.adress]);
+        if(adressBuyer) {
+            createCoordsFromBuyer()
+        }
+    }, [credentials.adress,adressBuyer ]);
 
     const createCoords = async () => {
         const apiKey = Geocode.setApiKey(
@@ -43,6 +46,25 @@ export default function Map_display() {
             }
         );
     };
+
+    const createCoordsFromBuyer = () => {
+        const apiKey = Geocode.setApiKey(
+            process.env.NEXT_PUBLIC_API_KEY_GOOGLE_MAP
+        );
+
+        Geocode.fromAddress(adressBuyer).then(
+            (response) => {
+                const res = response.results[0].geometry.location;
+
+                setLat(res.lat);
+                setLng(res.lng);
+            },
+
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
 
     const FlyMap = () => {
         const map = useMap();
@@ -85,8 +107,32 @@ export default function Map_display() {
                     </MapContainer>
                 </div>
             ) : (
+                
                 ""
+
+
             )}
+
+            {
+                adressBuyer ? (
+                    <div className={css.map_container}>
+                    <MapContainer
+                        // center={positionDef}
+                        scrollWheelZoom={true}
+                        center={lat === 0 ? position : positionDef}
+                        zoom={14}
+                        style={{ height: "100%", width: "100%" }}
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+
+                        <FlyMap />
+                    </MapContainer>
+                </div>
+                ) : ''
+            }
         </>
     );
 }

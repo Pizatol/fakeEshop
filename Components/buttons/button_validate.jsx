@@ -5,10 +5,8 @@ import css from "../../styles/Button_validate.module.scss";
 export default function Button_validate({
     props,
    title,
-    onImageUpload,
-    filed,
-    adress,
-    validation_image,
+   price,
+  data,
     foo
 }) {
 
@@ -28,17 +26,23 @@ export default function Button_validate({
 
     return (
         <>
-             <button
+        {
+            data ? (
+                <button
                 onClick={foo}
                 type="submit"
                 className={
-                    title !== ""
+                    data !== ""
                         ? `${css.global_container}`
                         : ` ${css.disabled}`
                 }
             >
                 {props}
             </button>
+            ) : ""
+        }
+      
+            
 {/*            
             {
                 validation_image ? (

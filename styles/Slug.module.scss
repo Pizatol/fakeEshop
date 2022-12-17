@@ -54,3 +54,17 @@
 .pseudo{
 	margin-left: 5px;
 }
+
+.middle_part {
+	
+	font-family: var(--DM);
+	color: var(--darkColor1);
+
+	h2 {
+		text-align: center;
+		font-size: var(--fontSize2);
+	}
+	p {
+		font-size: var(--fontSize0);
+	}
+}

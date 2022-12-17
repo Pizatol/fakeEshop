@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import { getIdToken } from "firebase/auth";
 
 import Button_validadte from "../Components/buttons/Button_validate";
+import Map_display from "../Components/Map_display";
 
 import face from "../public/assets/icons/face.svg";
 import Button_buy from "../Components/buttons/Button_buy";
@@ -32,6 +33,7 @@ export default function Slug() {
     const [productList, setProductList] = useState([]);
     const [product, setProduct] = useState(undefined);
     const [loading, setLoading] = useState(false);
+    const [adressBuyer, setAddressBuyer] = useState('')
 
     useEffect(() => {
         const getProducts = async () => {
@@ -41,11 +43,19 @@ export default function Slug() {
 
             setProduct(docSnap.data());
             setLoading(true);
-            console.log(product);
+            
         };
-
+        
         getProducts();
+        if(product){
+
+            setAddressBuyer(product.credentials.globalAdress)
+        }
     }, []);
+
+   
+
+   
 
     return (
         <div className={css.global_container}>
@@ -84,9 +94,17 @@ export default function Slug() {
                     </div>
 
                     <div className={css.middle_part}>
-                                
+                            <h2> {product.title} </h2>   
+                            <h3>  {product.price} € </h3>
+                            <p> {product.date} </p>
 
                     </div>        
+
+                    <div className={css.bottom_part}>
+
+                            <Map_display adressBuyer = {adressBuyer} />
+
+                    </div>
 
 
 

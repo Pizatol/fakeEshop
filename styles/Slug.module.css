@@ -51,4 +51,16 @@
 
 .pseudo {
   margin-left: 5px;
+}
+
+.middle_part {
+  font-family: var(--DM);
+  color: var(--darkColor1);
+}
+.middle_part h2 {
+  text-align: center;
+  font-size: var(--fontSize2);
+}
+.middle_part p {
+  font-size: var(--fontSize0);
 }/*# sourceMappingURL=Slug.module.css.map */

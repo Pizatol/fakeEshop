@@ -59,6 +59,7 @@ export default function Description() {
                     <Button_validate
                         props={"Valider"}
                         foo={handle_description_validation}
+                        data={textDescription}
                     />
                 ) : (
                     <Button_cancel

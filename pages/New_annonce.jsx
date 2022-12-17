@@ -4,6 +4,7 @@ import css from "../styles/New_annonce.module.scss";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { LoginContext } from "../context/LoginContext";
+import { useRouter } from "next/router";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -42,26 +43,43 @@ import Input_image from "../Components/Input_image";
 import Description from "../Components/Description";
 import Adress_input from "../Components/adress/Adress_input";
 import Title from "../Components/Title";
+import Price from "../Components/Price";
+
 
 export default function New_annonce() {
     const dataCollectionRef = collection(db, "products");
     const {
-        price, setPrice,
+        price,
+        setPrice,
         title,
         setTitle,
         category,
         setCategory,
         description,
         setDescription,
-        credentials,  
+        credentials,
         images,
-        user
+        user,
     } = useContext(LoginContext);
 
     const [stateImage, setStateImage] = useState([]);
     const [uploadImage, setUploadImage] = useState([]);
     const [tempoListImg, setTempoListImg] = useState([]);
     const [tempoTitle, setTempoTitle] = useState("");
+
+    const router =useRouter()
+
+    const date = new Date();
+    const day = `${date.getDate() < 10 ? "0" : ""}${date.getDate()}`;
+    const month = `${
+        date.getMonth() + 1 < 10 ? "0" : ""
+    }${date.getMonth()}`;
+    const year = `${date.getFullYear()} `;
+    const minutes = date.getMinutes()
+    const hour = date.getHours()
+    const seconds = date.getSeconds()
+    const formattedDate = day + "/" + month + "/" + year + ' ' + hour+":"+minutes+":"+seconds;
+    console.log(formattedDate);
 
     const MapDynamicDiplay = dynamic(
         () => import("../Components/Map_display"),
@@ -71,25 +89,37 @@ export default function New_annonce() {
         }
     );
 
-    console.log(user.email);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // DATE
+        const date = new Date();
+        const day = `${date.getDate() < 10 ? "0" : ""}${date.getDate()}`;
+        const month = `${
+            date.getMonth() + 1 < 10 ? "0" : ""
+        }${date.getMonth()}`;
+        const year = `${date.getFullYear()} `;
+        const minutes = date.getMinutes()
+        const hour = date.getHours()
+        const seconds = date.getSeconds()
+        const formattedDate = day + "/" + month + "/" + year + ' ' + hour+":"+minutes+":"+seconds;
 
         const newProduct = {
             id: v4(),
             title: title,
+            price: price,
             category: category,
             description: description,
             credentials: credentials,
             images: images,
-            user : user.email
+            user: user.email,
+            date: formattedDate,
         };
 
         try {
             await addDoc(dataCollectionRef, newProduct);
-            console.log(newProduct);
-
+            
+            router.push("/")
             toast.success(" New product added!", {
                 autoClose: 1000,
                 theme: "colored",
@@ -107,11 +137,10 @@ export default function New_annonce() {
         }
     };
 
-
     return (
         <div className={css.global_container}>
             {/* TITRE */}
-            <div className={title ? "" : ""}>
+            <div>
                 <div className={css.title}>
                     <h1>Déposer une annonce</h1>
                 </div>
@@ -119,17 +148,17 @@ export default function New_annonce() {
                 <div className={css.title_announcement_container}>
                     <h2 className={css.main_title}>Titre de l'annonce</h2>
 
-
-
-            <Title/>
-
-                
+                    <Title />
                 </div>
             </div>
 
+            <div>
+                <Price />
+            </div>
+
             <div className={css.title_field_container}></div>
-{/* CATEGORY */}
-            <Category category={setCategory} title={title} />
+            {/* CATEGORY */}
+            <Category category={setCategory} price={price} />
 
             {category ? <Adress_input /> : ""}
 
@@ -158,11 +187,8 @@ export default function New_annonce() {
                 ""
             )}
 
-            {
-       
-            description !== ""
-             ? (
-                <Button_validate props="Validation !" foo={handleSubmit} />
+            {description !== "" ? (
+                <Button_validate data={description} props="Validation !" foo={handleSubmit} />
             ) : (
                 ""
             )}

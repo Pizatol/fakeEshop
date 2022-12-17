@@ -5,7 +5,7 @@ import Image from "next/image";
 import cancel_icon from "../public/assets/icons/cancel.svg";
 import Button_cancel from "./buttons/Button_cancel";
 
-export default function Category({ category, title }) {
+export default function Category({ category, price }) {
     const [mode, SetMode] = useState(false);
     const [multimedia, setMultimedia] = useState(false);
     const [loisirs, setLoisirs] = useState(false);
@@ -47,7 +47,7 @@ export default function Category({ category, title }) {
     return (
         <div
             className={
-                title === ""
+                price === 0
                     ? `${css.hidden} ${css.category_container}`
                     : css.category_container
             }
