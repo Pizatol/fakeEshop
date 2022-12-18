@@ -33,7 +33,7 @@ export default function Slug() {
     const [productList, setProductList] = useState([]);
     const [product, setProduct] = useState(undefined);
     const [loading, setLoading] = useState(false);
-    const [adressBuyer, setAddressBuyer] = useState('')
+    const [adressBuyer, setAddressBuyer] = useState("");
 
     useEffect(() => {
         const getProducts = async () => {
@@ -43,19 +43,13 @@ export default function Slug() {
 
             setProduct(docSnap.data());
             setLoading(true);
-            
         };
-        
-        getProducts();
-        if(product){
 
-            setAddressBuyer(product.credentials.globalAdress)
+        getProducts();
+        if (product) {
+            setAddressBuyer(product.credentials.globalAdress);
         }
     }, []);
-
-   
-
-   
 
     return (
         <div className={css.global_container}>
@@ -86,7 +80,7 @@ export default function Slug() {
                                     width={40}
                                     height={40}
                                 />
-                                <p className={css.pseudo}>Pseudonyme</p>
+                                <p className={css.pseudo}>Pseudo</p>
                             </div>
 
                             <Button_buy props="Acheter" />
@@ -94,25 +88,15 @@ export default function Slug() {
                     </div>
 
                     <div className={css.middle_part}>
-                            <h2> {product.title} </h2>   
-                            <h3>  {product.price} € </h3>
-                            <p> {product.date} </p>
-
-                    </div>        
-
-                    <div className={css.bottom_part}>
-
-                            <Map_display adressBuyer = {adressBuyer} />
-
+                        <h2> {product.title} </h2>
+                        <h3> {product.price} € </h3>
+                        <p> {product.date} </p>
                     </div>
 
-
-
+                    <div className={css.bottom_part}>
+                        <Map_display adressBuyer={adressBuyer} />
+                    </div>
                 </div>
-
-
-
-
             ) : (
                 <div>Loading</div>
             )}
