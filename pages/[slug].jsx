@@ -80,7 +80,7 @@ export default function Slug() {
                                     width={40}
                                     height={40}
                                 />
-                                <p className={css.pseudo}>Pseudo</p>
+                                <p className={css.pseudo}>Pseudonyme</p>
                             </div>
 
                             <Button_buy props="Acheter" />
