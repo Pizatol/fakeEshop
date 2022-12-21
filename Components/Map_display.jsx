@@ -8,7 +8,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
 
-export default function Map_display({adressBuyer} ) {
+export default function Map_display({ adressBuyer }) {
     const { credentials, setCredentials } = useContext(LoginContext);
 
     const [lat, setLat] = useState(0);
@@ -23,10 +23,13 @@ export default function Map_display({adressBuyer} ) {
         if (credentials.globalAdress) {
             createCoords();
         }
-        if(adressBuyer) {
-            createCoordsFromBuyer()
+        if (adressBuyer) {
+            
+            createCoordsFromBuyer();
         }
-    }, [credentials.adress,adressBuyer ]);
+    }, [credentials.adress, adressBuyer]);
+
+
 
     const createCoords = async () => {
         const apiKey = Geocode.setApiKey(
@@ -39,6 +42,7 @@ export default function Map_display({adressBuyer} ) {
 
                 setLat(res.lat);
                 setLng(res.lng);
+
             },
 
             (error) => {
@@ -61,10 +65,10 @@ export default function Map_display({adressBuyer} ) {
             },
 
             (error) => {
-                console.error(error);
+                console.error(error); 
             }
         );
-    }
+    };
 
     const FlyMap = () => {
         const map = useMap();
@@ -73,7 +77,7 @@ export default function Map_display({adressBuyer} ) {
             const fly = map.setView(position, 13, {
                 duration: 3,
             });
-            setToggleMap(true);
+            // setToggleMap(true);
 
             return (
                 <Marker
@@ -107,15 +111,11 @@ export default function Map_display({adressBuyer} ) {
                     </MapContainer>
                 </div>
             ) : (
-                
                 ""
-
-
             )}
 
-            {
-                adressBuyer ? (
-                    <div className={css.map_container}>
+            {adressBuyer ? (
+                <div className={css.map_container}>
                     <MapContainer
                         // center={positionDef}
                         scrollWheelZoom={true}
@@ -131,8 +131,9 @@ export default function Map_display({adressBuyer} ) {
                         <FlyMap />
                     </MapContainer>
                 </div>
-                ) : ''
-            }
+            ) : (
+                ""
+            )}
         </>
     );
 }

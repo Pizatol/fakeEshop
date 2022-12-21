@@ -38,9 +38,9 @@ export default function ProductsPage() {
 
     return (
         <div className={css.global_container}>
-            <div>
+            <div className={css.products_container}>
                 {productList.map((item, index) => (
-                    <div key={index}>
+                    <div key={index}  >
                      
                         <Product_mini_card
                             id={item.id}
